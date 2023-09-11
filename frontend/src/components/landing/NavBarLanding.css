@@ -1,0 +1,53 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10px;
+  padding: 0px;
+  background-color: transparent;
+  width: 100%; /* Ensure the navbar spans the entire width */
+  max-width: 100%; /* Ensure the navbar spans the entire width */
+}
+
+.navbar-links-container {
+  list-style: none; /* Remove list styling */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Display the links as a flex container */
+}
+
+.navbar-links-container a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  margin-left: 20px; /* Add margin to the left for spacing */
+  margin-right: 20px; /* Add margin to the right for increased spacing */
+}
+
+.nav-logo-container img {
+  max-width: 100px;
+  margin-left: 30px;
+  position: relative;
+  top:10px;
+}
+
+/* Optional: Style for the menu icon */
+.navbar-menu-container svg {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+/* Media query for responsive design */
+@media (max-width: 800px) {
+  .navbar-links-container {
+    display: none;
+  }
+
+  .navbar-menu-container svg {
+    display: block;
+  }
+}
