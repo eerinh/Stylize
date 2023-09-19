@@ -20,7 +20,6 @@ function Navbar() {
                 <input type="text" placeholder="Search..." />
             </div>
             <div></div>
-
         </div>
     );
 }

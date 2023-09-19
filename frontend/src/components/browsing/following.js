@@ -35,9 +35,9 @@ function Following() {
     });
   }, [db]);
 
-  
+
   const items = imageData.map((data, index) => (
-    
+
     <div className="image-container" key={index}>
       <img
         src={data.URL}
