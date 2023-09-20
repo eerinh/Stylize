@@ -44,6 +44,7 @@ function Aboutus() {
     <Navbar/>
     <center><h1> Frequently Asked Questions &nbsp;</h1></center>
     <center><p> Need some help understanding Stylize? No Worries, Simply click on a + below to get reading! </p></center>
+    <center><p> Dont see your Question here? Head over to the Help Page to ask us!  </p></center>
 
     <div className="About">
 
