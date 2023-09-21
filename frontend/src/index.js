@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Following from './components/browsing/following.js';
 import reportWebVitals from './reportWebVitals';
+import Landing from './components/landing/Landing.js';
+import Share from './components/share/Share';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Following />
+        < Following/>
   </React.StrictMode>
 );
 

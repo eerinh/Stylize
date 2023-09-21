@@ -13,6 +13,7 @@ function Navbar() {
                 <a href="#">Boards</a>
                 <a href="#">Social</a>
                 <a href="#">Profile</a>
+
                 <div className="sign-out">Sign Out</div>
             </div>
             <div></div>
@@ -20,7 +21,6 @@ function Navbar() {
                 <input type="text" placeholder="Search..." />
             </div>
             <div></div>
-
         </div>
     );
 }
