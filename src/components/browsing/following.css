@@ -1,0 +1,159 @@
+.App {
+  text-align: center;
+  background: linear-gradient(to bottom, #dadada, #f8f8f8);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; */
+  margin-top: 20px;
+  /* Add margin to separate the links and content */
+}
+
+.nav-button-left {
+  border: 1px solid black;
+  border-radius: 5px 0 0 5px;
+  padding: 8px 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.nav-button-right {
+  border: 1px solid black;
+  border-radius: 0 5px 5px 0;
+  padding: 8px 20px;
+  color: black;
+  text-decoration: none;
+}
+
+
+/* Add this CSS to your existing styles */
+.nav-type-button {
+  display: inline-block;
+  /* Make it inline-block to contain the links */
+  margin-top: 20px;
+  margin-bottom:40px;
+  /* Add margin to create space between nav-type-button and search bar */
+  font-size: large;
+}
+
+
+.nav-button-left:hover {
+  background-color: #f0f0f0;
+  /* Change background color on hover for the left button */
+}
+
+.nav-button-right:hover {
+  background-color: #f0f0f0;
+  /* Change background color on hover for the right button */
+}
+
+/* Style the search bar
+.search-bar {
+  width: 100%; /* Make the search bar span the width of the content
+  background-color: #fff;  Add your desired background color
+  /* padding: 10px; Add padding as needed 
+  position:relative;
+  top:50px;
+} 
+*/
+
+/* 
+.nav-logo-container img {
+  max-width: 100px;
+  margin-left: 30px;
+  position: relative;
+  top:10px;
+} */
+
+/* Add this CSS to your existing styles */
+
+/* Style the image container */
+/* Style the image container */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block; /* Add this to make the container inline-block */
+  border-radius: 10px;
+  margin:10px;
+
+}
+
+/* Style the image */
+.image-container img {
+  width: 100%;
+  transition: transform 0.3s ease;
+  margin:0px;
+  padding:0px;
+  height:100%;
+  width:100%;
+}
+
+/* Style the text container (hidden by default) */
+.image-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Set the width to match the image width */
+  background-color: rgba(180, 180, 180, 0.7); /* Adjust the background color and opacity */
+  color: white;
+  transform: translateY(100%); /* Move the text below the image */
+  transition: transform 0.3s ease;
+}
+
+/* Add a hover effect to reveal the text */
+.image-container:hover .image-text {
+  transform: translateY(0); /* Bring the text back up */
+}
+
+/* Style the title and description */
+.image-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.image-description {
+  font-size: 14px;
+}

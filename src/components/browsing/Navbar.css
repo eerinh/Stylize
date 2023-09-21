@@ -1,0 +1,70 @@
+/* Navbar.css */
+
+/* Navbar container */
+.navbar {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Adjust the width of the left column (auto for logo) and right column (1fr for the rest) */
+    /* grid-gap: 1px; Adjust the gap between columns as needed */
+    grid-column-gap: 10px;
+    grid-row-gap:1px;
+    background-color: transparent;
+    color: black;
+    padding: 5px 50px;    
+    align-items: center;
+  }
+
+
+  
+.nav-logo-container img {
+    max-width: 100px;
+    position: relative;
+    top:20px;
+    grid-column:1;
+  }
+  
+  /* Inner container for links, search bar, and sign-out */
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Navigation links */
+  .nav-links {
+    display: flex;
+    flex-direction: row; /* Arrange links in a row */
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  
+  /* Search bar and Sign Out button */
+  .search-bar {
+    display: flex;
+    /* gap: 10px; Adjust the gap between elements as needed */
+  }
+  
+  .search-bar input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    color: black;
+    font-size: smaller;
+  }
+  
+  /* Sign Out button */
+  .sign-out {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: auto;
+  }
+
+
+  
