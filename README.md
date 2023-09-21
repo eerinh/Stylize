@@ -10,3 +10,4 @@ Make sure packages are installed:  npm install
 In the frontend folder: npm start
 
 For this sprint, the account sign up feature is in a separate github due to firebase issues. This will be fixed in Sprint 2.
+Therefore, the login and signup buttons will take you to the home page so you will be able to access it.
