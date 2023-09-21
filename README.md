@@ -6,4 +6,5 @@ Stylize is a web application which allows users to upload images of clothing ite
 
 To run Stylize:
 Make sure packages are installed:  npm install
+
 In the frontend folder: npm start
