@@ -12,11 +12,14 @@ import AboutUs from './components/aboutus/Aboutus';
 function Root() {
   return (
     <Routes>
-      <Route path="/" element={<Following />} />
+      <Route path="/" element={<Landing />} />
       <Route path="/following" element={<Following />} />
       <Route path="/share" element={<Share />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/help" element={<Help />} />
+      {/* placeholder until we get the account feature working */}
+      <Route path="/login" element={<Following />} />
+      <Route path="/signup" element={<Following />} />  
       {/* ... other routes if you have them ... */}
     </Routes>
   );

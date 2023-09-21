@@ -47,7 +47,7 @@ function Navbar() {
             <div className="nav-links">
                 <Link to="/following">Home</Link>
                 <a href="#">Boards</a>
-                <a href="#">Social</a>
+                <Link to="/share">Social</Link>
                 <a href="#">Profile</a>
 
                 <div className="nav-sign-out">Sign Out</div>
