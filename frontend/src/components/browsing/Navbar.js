@@ -1,6 +1,8 @@
 import React from 'react';
-import './Navbar.css'; // Import the corresponding CSS file
+import './Navbar.css';
 import Logo from '../../assets/Logo.svg';
+import { Link } from 'react-router-dom';
+
 
 function Navbar() {
     return (
@@ -9,15 +11,17 @@ function Navbar() {
                 <img src={Logo} alt="Logo" />
             </div>
             <div className="nav-links">
-                <a href="#">Home</a>
+                <Link to="/following">Home</Link>
                 <a href="#">Boards</a>
                 <a href="#">Social</a>
                 <a href="#">Profile</a>
 
-                <div className="sign-out">Sign Out</div>
+                <div className="nav-sign-out">Sign Out</div>
             </div>
+
+
             <div></div>
-            <div className="search-bar">
+            <div className="nav-search-bar">
                 <input type="text" placeholder="Search..." />
             </div>
             <div></div>
