@@ -2,22 +2,26 @@
 
 import React from "react";
 import Logo from "../../assets/Logo.svg";
+import { Link } from 'react-router-dom';
+
 import './NavBarLanding.css';
 
-const Navbar = () => {
+const NavbarLanding = () => {
   return (
-    <nav className="navbar">
-      <div className="nav-logo-container">
-        <img src={Logo} alt="Logo" />
+    <nav className="navbarlanding">
+      <div className="navLan-logo-container">
+        <Link to="/">
+          <img src={Logo} alt="Logo" />
+        </Link>
       </div>
-      <div className="navbar-links-container">
-        <a href="#">Login</a>
-        <a href="#">Signup</a>
-        <a href="#">About Us</a>
-        <a href="#">Help</a>
+      <div className="navbarLan-links-container">
+        <Link to="/">Login</Link>
+        <Link to="/">Signup</Link>
+        <Link to="/aboutus">About Us</Link>
+        <Link to="/help">Help</Link>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default NavbarLanding;
