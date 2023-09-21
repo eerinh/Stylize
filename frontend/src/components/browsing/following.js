@@ -21,7 +21,6 @@ function Following() {
   const [imageData, setImageData] = useState([]);
 
   useEffect(() => {
-    // Reference to your sharedImages collection
     const sharedImagesCollection = collection(db, "sharedImages");
 
     // Fetch the image data
@@ -38,25 +37,25 @@ function Following() {
 
   const items = imageData.map((data, index) => (
 
-    <div className="image-container" key={index}>
+    <div className="following-image-container" key={index}>
       <img
         src={data.URL}
         alt=""
       />
-      <div className="image-text">
-        <h3 className="image-title">{data.title}</h3>
-        <p className="image-description">{data.description}</p>
+      <div className="following-image-text">
+        <h3 className="following-image-title">{data.title}</h3>
+        <p className="following-image-description">{data.description}</p>
       </div>
     </div>
   ));
 
   return (
-    <div className="App">
+    <div className="following">
       <Navbar />
-      <div className="content">
-        <div className="nav-type-button">
-          <a href="#" className="nav-button-left">Trending</a>
-          <a href="#" className="nav-button-right">Following</a>
+      <div className="following-content">
+        <div className="following-nav-type-button">
+          <a href="#" className="following-nav-button-left">Trending</a>
+          <a href="#" className="following-nav-button-right">Following</a>
         </div>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 5 }}

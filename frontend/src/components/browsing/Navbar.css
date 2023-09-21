@@ -23,7 +23,7 @@
   }
   
   /* Inner container for links, search bar, and sign-out */
-  .inner-container {
+  .nav-inner-container {
     display: flex;
     flex-direction: column;
   }
@@ -43,12 +43,12 @@
   }
   
   /* Search bar and Sign Out button */
-  .search-bar {
+  .nav-search-bar {
     display: flex;
     /* gap: 10px; Adjust the gap between elements as needed */
   }
   
-  .search-bar input[type="text"] {
+  .nav-search-bar input[type="text"] {
     width: 100%;
     padding: 6px;
     border: none;
@@ -59,7 +59,7 @@
   }
   
   /* Sign Out button */
-  .sign-out {
+  .nav-sign-out {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
