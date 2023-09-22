@@ -10,6 +10,7 @@ import Help from './components/help/Help';
 import AboutUs from './components/aboutus/Aboutus';
 import Profile from './components/profile/Profile';
 import Boards from './components/boards/Boards';
+import SizeChart from './components/sizechart/SizeChart';
 
 
 function Root() {
@@ -24,7 +25,8 @@ function Root() {
       <Route path="/login" element={<Following />} />
       <Route path="/signup" element={<Following />} />  
       <Route path="/profile" element={<Profile />} /> 
-      <Route path="/boards" element={<Boards />} /> 
+      <Route path="/boards" element={<Boards />} />
+      <Route path="/sizechart" element={<SizeChart />} />  
       {/* ... other routes if you have them ... */}
     </Routes>
   );

@@ -1,0 +1,30 @@
+body {
+    background-color: #F5EEDC; /* Beige background */
+    font-family: Arial, sans-serif;
+    color: #5E5E5E; /* Neutral text color */
+    padding: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #E9DACB; /* Light beige for header */
+}
+
+th, td {
+    padding: 10px 15px;
+    border: 1px solid #DAD0C0; /* Neutral border color */
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #EDE4D3; /* Alternate rows have a slightly different beige shade for better readability */
+}
