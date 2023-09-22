@@ -49,6 +49,7 @@ function Navbar() {
                 <Link to="/boards">Boards</Link>
                 <Link to="/share">Social</Link>
                 <Link to="/profile">Profile</Link>
+                <Link to="/sizechart">Size Chart</Link>
 
                 <div className="nav-sign-out">Sign Out</div>
 
