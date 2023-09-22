@@ -16,7 +16,8 @@ Therefore, the login and signup buttons will take you to the home page so you wi
 
 The Account sign in and log in feature in a separate folder due to firebase issues.
 
-When testing the login and signup features in this seperate repo, the component will start off as a blank page but in the url tab ensure to /login or /signup and after that all functionality should work. This issue will be resolved in sprint 2. An example of this is inserted as an image below:
+When testing the login and signup features in this seperate repo, the component will start off as a blank page but in the url tab ensure to /login or /signup and after that all functionality should work. This issue will be resolved in sprint 2. An example of this is inserted as an image below: ![image](https://github.com/eerinh/Stylize/assets/91291065/58c83eb5-d8bd-42b2-8dee-b4493a87fd10)
+
 
 Otherwise in the URL tab:
 
