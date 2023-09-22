@@ -1,7 +1,3 @@
-
-
-// LandingPage.js
-
 import React from 'react';
 import './Landing.css';
 import Navbar from './NavbarLanding';
@@ -9,17 +5,17 @@ import backgroundImage from '../../assets/background.jpg';
 
 const LandingPage = () => {
   return (
-    <div className="background" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className="landing-background" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Navbar />
       <div className="landing-page">
-        <div className="content">
-          <div className="text-container">
-            <h1 className="headline">Discover, Match</h1>
-            <h1 className="headline">Stylize</h1>
+        <div className="landing-content">
+          <div className="landing-text-container">
+            <h1 className="landing-headline">Discover, Match</h1>
+            <h1 className="landing-headline">Stylize</h1>
           </div>
-          <div className="button-container">
+          <div className="landing-button-container">
             {/* <a href="ADD LINK HERE"> */}
-              <button className="start-button">Get started</button>
+              <button className="landing-start-button">Get started</button>
             {/* </a> */}
           </div>
         </div>

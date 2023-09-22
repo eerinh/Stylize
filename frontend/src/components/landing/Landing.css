@@ -1,6 +1,5 @@
 /* Landing.css */
 
-/* Resetting margin and padding */
 html,
 body {
     margin: 0;
@@ -8,7 +7,7 @@ body {
     overflow: hidden;
 }
 
-.background {
+.landing-background {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center top;
@@ -16,7 +15,7 @@ body {
     min-height: 100vh;
 }
 
-.content {
+.landing-content {
     display: grid;
     /* Use CSS Grid */
     grid-template-columns: 1fr 1fr;
@@ -28,12 +27,12 @@ body {
 }
 
 /* Common styles for text */
-.text-container {
+.landing-text-container {
     text-align: right;
     padding-right: 30px;
 }
 
-.headline {
+.landing-headline {
     color: black;
     font-family: 'Quicksand', sans-serif;
     font-size: 98px;
@@ -45,23 +44,19 @@ body {
     position: relative;
     top: 90px;
     grid-column: 1;
-    /* Place in column 1 */
     grid-row: 1;
-    /* Place in row 1 */
 }
 
 
 /* Get started button */
-.button-container {
+.landing-button-container {
     text-align: center;
     grid-column: 1;
-    /* Place in column 1 */
     grid-row: 2;
-    /* Place in row 2 */
     
 }
 
-.start-button {
+.landing-start-button {
     font-family: Georgia, serif;
     font-size: 25px;
     font-weight: bold;
@@ -74,15 +69,12 @@ body {
     border: 3px solid;
     border-color: whitesmoke;
     border-radius: 20px;
-    margin-right: auto;
-    /* Center horizontally */
+    margin-left: auto;
     position: relative;
     top:20px;
-
-    /* Adjust to your desired vertical position */
 }
 
-.start-button:hover {
+.landing-start-button:hover {
     background-color: white;
     color: black;
 }
