@@ -8,6 +8,9 @@ import Share from './components/share/Share';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Help from './components/help/Help';
 import AboutUs from './components/aboutus/Aboutus';
+import Profile from './components/profile/Profile';
+import Boards from './components/boards/Boards';
+
 
 function Root() {
   return (
@@ -20,6 +23,8 @@ function Root() {
       {/* placeholder until we get the account feature working */}
       <Route path="/login" element={<Following />} />
       <Route path="/signup" element={<Following />} />  
+      <Route path="/profile" element={<Profile />} /> 
+      <Route path="/boards" element={<Boards />} /> 
       {/* ... other routes if you have them ... */}
     </Routes>
   );
