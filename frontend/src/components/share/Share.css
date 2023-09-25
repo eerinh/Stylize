@@ -20,11 +20,11 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    display: flex; /*Display children in a horizontal line*/
-    align-items: center; /*Center children vertically*/
+    display: flex;
+    align-items: center; 
   }
   
   .icon {
-    margin-right: 10px; /
+    margin-right: 10px; 
 }
   

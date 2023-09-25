@@ -46,11 +46,13 @@ function Navbar() {
             </div>
             <div className="nav-links">
                 <Link to="/following">Home</Link>
-                <a href="#">Boards</a>
-                <a href="#">Social</a>
-                <a href="#">Profile</a>
+                <Link to="/boards">Boards</Link>
+                <Link to="/share">Social</Link>
+                <Link to="/profile">Profile</Link>
+                <Link to="/sizechart">Size Chart</Link>
 
                 <div className="nav-sign-out">Sign Out</div>
+
             </div>
 
 
