@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Navbar from './Navbar';
 import './following.css'; // Import the corresponding CSS file
+import { firestore } from "../database";
+import { getDocs, collection } from "firebase/firestore";
 
 
 function Following() {
   const [imageData, setImageData] = useState([]);
 
   useEffect(() => {
-    const sharedImagesCollection = collection(db, "sharedImages");
+    const sharedImagesCollection = collection(firestore, "sharedImages");
 
     // Fetch the image data
     getDocs(sharedImagesCollection).then((querySnapshot) => {
@@ -19,7 +21,7 @@ function Following() {
       });
       setImageData(data);
     });
-  }, [db]);
+  }, []);
 
 
   const items = imageData.map((data, index) => (
