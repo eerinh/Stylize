@@ -2,20 +2,7 @@ import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Navbar from './Navbar';
 import './following.css'; // Import the corresponding CSS file
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBxQ2QxWXu3wIdercIR1uevcVOZyPE9gWc",
-  authDomain: "imagestore-8635a.firebaseapp.com",
-  projectId: "imagestore-8635a",
-  storageBucket: "imagestore-8635a.appspot.com",
-  messagingSenderId: "804414393725",
-  appId: "1:804414393725:web:d98a3330443fcc78e1d014"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 function Following() {
   const [imageData, setImageData] = useState([]);
