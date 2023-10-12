@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Navbar from '../landing/NavbarLanding';
+import Navbar from '../navbar/Navbar';
 import './Help.css';
 import { firestore } from "../database";
 import { addDoc, collection } from "firebase/firestore";

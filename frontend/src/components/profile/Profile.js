@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../browsing/Navbar';
+import Navbar from '../navbar/Navbar';
 import './Profile.css';
 import { FaStar } from "react-icons/fa"; //importing requried files
 
