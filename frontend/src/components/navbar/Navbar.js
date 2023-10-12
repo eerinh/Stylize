@@ -81,14 +81,16 @@
 
 
 
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState, useEffect } from 'react';
 import './Navbar.css';
 import Logo from '../../assets/Logo.svg';
 import { Link, useHistory } from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import { app, firestore } from '../database'; // Import the Firebase app instance
+import 'firebase/storage'; // Import other Firebase services as needed
+
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import Login from '../account/Login'; // Import the Login component
+
 
 
 
@@ -96,6 +98,35 @@ import Login from '../account/Login'; // Import the Login component
 
  // not sure about this 
  const AuthContext = React.createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Add Firebase authentication state change listener here
+    const unsubscribe = firestore.auth().onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // User is logged in
+        setUser(authUser);
+      } else {
+        // User is not logged in
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the listener on unmount
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
 function Navbar() {
     // const history = useHistory();
