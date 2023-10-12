@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../browsing/Navbar';
+import Navbar from '../navbar/Navbar';
 
 function SizeChart() {
   return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
-import Navbar from '../browsing/Navbar';
+import Navbar from '../navbar/Navbar';
 
 export default class Share extends Component {
   render() {

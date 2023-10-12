@@ -1,6 +1,6 @@
 import React from 'react';
 import './Landing.css';
-import Navbar from './NavbarLanding';
+import Navbar from '../navbar/Navbar';
 import backgroundImage from '../../assets/background.jpg';
 
 const LandingPage = () => {
