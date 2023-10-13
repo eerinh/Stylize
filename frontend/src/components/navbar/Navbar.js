@@ -105,10 +105,28 @@ function Navbar() {
         return () => unsubscribe(); // Cleanup subscription on unmount
     }, []);
 
-    const handleFileUpload = (e) => {
-        // ... (same as before)
-    };
+        const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        const storage = getStorage(); // Get Firebase storage instance
+        const storageRef = ref(storage, `images/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
+        uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                console.error('Upload error:', error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+                });
+            }
+        );
+    };
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
