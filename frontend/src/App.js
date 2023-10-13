@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './components/account/Login';
 import Signup from './components/account/Signup';
-import Following from './components/browsing/following';
+import Following from './components/browsing/API';
 import Landing from './components/landing/Landing';
 import reportWebVitals from './reportWebVitals';
 import Share from './components/share/Share';
