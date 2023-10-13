@@ -93,6 +93,7 @@ import { signOut } from 'firebase/auth';
 
 function Navbar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication
+    const [uploadedFileName, setUploadedFileName] = useState(''); // New state for file name
     const fileInputRef = useRef(null);
     const navigate = useNavigate();  // Get the navigate function
 
@@ -107,9 +108,14 @@ function Navbar() {
 
         const handleFileUpload = (e) => {
         const file = e.target.files[0];
+        setUploadedFileName(file.name);  // Set file name to state
         const storage = getStorage(); // Get Firebase storage instance
         const storageRef = ref(storage, `images/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
+        
+        const openFileInput = () => {
+            fileInputRef.current.click();
+        };
 
         uploadTask.on(
             'state_changed',
@@ -163,7 +169,7 @@ function Navbar() {
 
                 <div></div>
                 <div className="nav-search-bar">
-                    <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="Search..." value={uploadedFileName} readOnly /> {/* Display file name */}
                     <span className="upload-image-text" onClick={openFileInput}>
                         Upload Image
                     </span>
