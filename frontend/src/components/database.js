@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
-//firebase configuration 
+// Firebase configuration 
 const firebaseConfig = {
   apiKey: "AIzaSyBxQ2QxWXu3wIdercIR1uevcVOZyPE9gWc",
   authDomain: "imagestore-8635a.firebaseapp.com",
@@ -11,7 +12,7 @@ const firebaseConfig = {
   appId: "1:804414393725:web:d98a3330443fcc78e1d014"
 };
 
-
-//initialise the firebase
+// Initialise the Firebase
 const app = initializeApp(firebaseConfig);
 export const firestore = getFirestore(app);
+export const auth = getAuth(app); // Add this line to export auth
