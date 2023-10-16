@@ -5,6 +5,8 @@ import Logo from "../../assets/Logo.svg";
 import { Link } from 'react-router-dom';
 
 import './NavBarLanding.css';
+import Login from '../account/Login'; // Import the Login component
+
 
 const NavbarLanding = () => {
   return (

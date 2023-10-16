@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import InputControl from './InputControl';
-import { auth } from './Firebase';
+import { auth } from '../database';
 
 import styles from './Signup.module.css'
 
@@ -32,7 +32,7 @@ function Signup(){
                 await updateProfile(user, {
                     displayName: values.name,
                 });
-                navigate("/home");
+                navigate("/following");
             })
             .catch((err) => {
                 setSubmitButtonDisabled(false);

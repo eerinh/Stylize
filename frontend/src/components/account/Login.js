@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import InputControl from './InputControl';
-import { auth } from './Firebase';
+import { auth } from '../database';
 
 import styles from './Login.module.css'
 
@@ -29,7 +29,7 @@ function Login(){
             .then(async(res) => {
                 setSubmitButtonDisabled(false);
                 
-                navigate("/home");
+                navigate("/following");
             })
             .catch((err) => {
                 setSubmitButtonDisabled(false);

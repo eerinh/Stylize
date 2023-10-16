@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import Navbar from './Navbar';
+import Navbar from '../navbar/Navbar';
 import './following.css'; // Import the corresponding CSS file
 import { firestore } from "../database";
 import { getDocs, collection } from "firebase/firestore";

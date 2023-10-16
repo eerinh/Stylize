@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../browsing/Navbar';
+import Navbar from '../navbar/Navbar';
 import './Boards.css'; // Import the required files
 
 function Boards() {
