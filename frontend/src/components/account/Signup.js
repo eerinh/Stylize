@@ -16,6 +16,7 @@ function Signup(){
     });
     const [errorMsg, setErrorMsg] = useState("");
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmission=() => {
         if(!values.name || !values.email || !values.pass){
@@ -40,6 +41,12 @@ function Signup(){
             });
     };
     
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const isPasswordEmpty = values.pass.trim() ==='';
+    
     return(
         <div className={styles.container}>
             <div className={styles.innerBox}>
@@ -55,11 +62,27 @@ function Signup(){
                         setValues((prev) => ({...prev, email: event.target.value }))
                 }
                 />
-                <InputControl label="Password" placeholder="Enter your Password"
-                    onChange={(event) =>
-                        setValues((prev) => ({...prev, pass: event.target.value }))
-                }
-                />
+
+                <div className={styles.passwordInput}>
+                    <InputControl label="Password" placeholder="Enter your Password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={values.pass}
+                        onChange={(event) =>
+                            setValues((prev) => ({...prev, pass: event.target.value }))
+                        }   
+                    />
+
+                    {!isPasswordEmpty && (
+                        <button
+                            className={styles.togglePasswordButton}
+                            onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                    )}
+                </div>
+
+                
 
                 <div className={styles.footer}>
                     <b className={styles.error}> {errorMsg}</b>
