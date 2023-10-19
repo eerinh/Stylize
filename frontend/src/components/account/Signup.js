@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import InputControl from './InputControl';
-import { auth } from './Firebase';
+import { auth } from '../database';
 
 import styles from './Signup.module.css'
 
@@ -16,6 +16,7 @@ function Signup(){
     });
     const [errorMsg, setErrorMsg] = useState("");
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmission=() => {
         if(!values.name || !values.email || !values.pass){
@@ -32,13 +33,19 @@ function Signup(){
                 await updateProfile(user, {
                     displayName: values.name,
                 });
-                navigate("/home");
+                navigate("/following");
             })
             .catch((err) => {
                 setSubmitButtonDisabled(false);
                 setErrorMsg(err.message);
             });
     };
+    
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const isPasswordEmpty = values.pass.trim() ==='';
     
     return(
         <div className={styles.container}>
@@ -55,11 +62,27 @@ function Signup(){
                         setValues((prev) => ({...prev, email: event.target.value }))
                 }
                 />
-                <InputControl label="Password" placeholder="Enter your Password"
-                    onChange={(event) =>
-                        setValues((prev) => ({...prev, pass: event.target.value }))
-                }
-                />
+
+                <div className={styles.passwordInput}>
+                    <InputControl label="Password" placeholder="Enter your Password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={values.pass}
+                        onChange={(event) =>
+                            setValues((prev) => ({...prev, pass: event.target.value }))
+                        }   
+                    />
+
+                    {!isPasswordEmpty && (
+                        <button
+                            className={styles.togglePasswordButton}
+                            onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                    )}
+                </div>
+
+                
 
                 <div className={styles.footer}>
                     <b className={styles.error}> {errorMsg}</b>
