@@ -79,23 +79,24 @@
 // export default Navbar;
 
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback , useContext } from 'react';
+import { useDropzone } from 'react-dropzone';
+import axios from 'axios';
+import { ImageContext } from '../browsing/imageContext';  // Import the context
 import './Navbar.css';
 import Logo from '../../assets/Logo.svg';
-import { Link, useNavigate } from 'react-router-dom';  // Add useNavigate
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { auth } from '../database'; // Import Firebase auth
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../database'; 
 import { signOut } from 'firebase/auth';
 
 
 
 function Navbar() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication
-    const [uploadedFileName, setUploadedFileName] = useState(''); // New state for file name
-    const fileInputRef = useRef(null);
-    const navigate = useNavigate();  // Get the navigate function
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [imageUrl] = useState('');
+    const navigate = useNavigate();
+    const { setImageUrl } = useContext(ImageContext); // Use context to get the setImageUrl function
+
 
 
     useEffect(() => {
@@ -106,33 +107,50 @@ function Navbar() {
         return () => unsubscribe(); // Cleanup subscription on unmount
     }, []);
 
-        const handleFileUpload = (e) => {
-        const file = e.target.files[0];
-        setUploadedFileName(file.name);  // Set file name to state
-        const storage = getStorage(); // Get Firebase storage instance
-        const storageRef = ref(storage, `images/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-        
-        const openFileInput = () => {
-            fileInputRef.current.click();
-        };
+    const onDrop = useCallback(async (acceptedFiles) => {
+        const file = acceptedFiles[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'ustwrvfd'); 
 
-        uploadTask.on(
-            'state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-            },
-            (error) => {
-                console.error('Upload error:', error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                });
-            }
-        );
-    };
+        const result = await axios.post('https://api.cloudinary.com/v1_1/dmqyrtczb/image/upload', formData);
+        setImageUrl(result.data.url);
+    }, []);
+
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accepts: 'image/*',
+        multiple: false,
+    });
+
+
+    // const handleFileUpload = (e) => {
+    //     const file = e.target.files[0];
+    //     setUploadedFileName(file.name);  // Set file name to state
+    //     const storage = getStorage(); // Get Firebase storage instance
+    //     const storageRef = ref(storage, `images/${file.name}`);
+    //     const uploadTask = uploadBytesResumable(storageRef, file);
+
+    //     const openFileInput = () => {
+    //         fileInputRef.current.click();
+    //     };
+
+    //     uploadTask.on(
+    //         'state_changed',
+    //         (snapshot) => {
+    //             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //             console.log('Upload is ' + progress + '% done');
+    //         },
+    //         (error) => {
+    //             console.error('Upload error:', error);
+    //         },
+    //         () => {
+    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //                 console.log('File available at', downloadURL);
+    //             });
+    //         }
+    //     );
+    // };
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
@@ -145,9 +163,7 @@ function Navbar() {
             });
     };
 
-    const openFileInput = () => {
-        fileInputRef.current.click();
-    };
+    
 
     if (isAuthenticated) {
         return (
@@ -169,20 +185,12 @@ function Navbar() {
 
                 <div></div>
                 <div className="nav-search-bar">
-                <input type="text" placeholder="Search..." value={uploadedFileName} readOnly /> {/* Display file name */}
-                    <span className="upload-image-text" onClick={openFileInput}>
-                        Upload Image
-                    </span>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInputRef}
-                        style={{ display: 'none' }}
-                        onChange={handleFileUpload}
-                    />
-
+                    <div {...getRootProps()} style={styles.dropzone}>
+                        <input {...getInputProps()} />
+                        <p>Click here or drag & drop to upload an image</p>
+                        {imageUrl && <img src={imageUrl} alt="Uploaded" style={styles.image} />}
+                    </div>
                 </div>
-                <div></div>
             </div>
         );
     } else {
@@ -203,6 +211,19 @@ function Navbar() {
         );
     }
 }
+
+const styles = {
+    dropzone: {
+        border: '2px dashed #cccccc',
+        padding: '20px',
+        cursor: 'pointer',
+        marginTop: '10px'
+    },
+    image: {
+        marginTop: '20px',
+        maxWidth: '100%',
+    },
+};
 
 export default Navbar;
 

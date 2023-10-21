@@ -60,45 +60,47 @@
 
 // export default GoogleLensComponent;
 
-import React, { useState } from 'react';
+import React, { useState , useContext, useEffect} from 'react';
 import axios from 'axios';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Navbar from '../navbar/Navbar';
 import './API.css';
+import { ImageContext } from './imageContext';  // Import the context
+
 
 const GoogleLensComponent = () => {
-    const [imageUrl, setImageUrl] = useState('');
     const [images, setImages] = useState([]);
     const [shoppingResults, setShoppingResults] = useState([]);
+    const { imageUrl } = useContext(ImageContext); // Use context to get the imageUrl
 
-    const handleImageChange = (e) => {
-        setImageUrl(e.target.value);
-    };
+    useEffect(() => {
+        const fetchResults = async () => {
+            if (imageUrl) {
+                try {
+                    const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
+                    const visualMatches = response.data.visual_matches;
+                    const imageLinks = visualMatches.map(item => item.thumbnail);
+                    setImages(imageLinks);
+
+                    const keywords = visualMatches.map(item => item.description).join(' ');
+                    await fetchShoppingResults(keywords);
+                } catch (error) {
+                    console.error('Error fetching Google Lens data:', error);
+                }
+            }
+        };
+
+        fetchResults();
+    }, [imageUrl]);  // This useEffect hook will run every time imageUrl changes
 
     const fetchShoppingResults = async (keywords) => {
         try {
             const response = await axios.get('http://localhost:5001/api/google-shopping', {
-                params: { q: keywords, api_key: '5b17ad02ca60c1ad6e91884b11d639da3c6ce842cff9023335a54a1fef35a398' } // Replace with your actual API key
+                params: { q: keywords, api_key: 'your-api-key' }
             });
             setShoppingResults(response.data.shopping_results);
         } catch (error) {
             console.error('Error fetching shopping data:', error);
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
-            const visualMatches = response.data.visual_matches;
-            const imageLinks = visualMatches.map(item => item.thumbnail);
-            setImages(imageLinks);
-
-            // Assuming the visual matches contain keywords or descriptions that can be used for shopping search
-            const keywords = visualMatches.map(item => item.description).join(' ');
-            fetchShoppingResults(keywords);
-        } catch (error) {
-            console.error('Error fetching Google Lens data:', error);
         }
     };
 
@@ -124,17 +126,7 @@ const GoogleLensComponent = () => {
     return (
         <div className="search">
             <Navbar />
-            <div className="search-content">
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Enter image URL"
-                        value={imageUrl}
-                        onChange={handleImageChange}
-                        className="image-url-input"
-                    />
-                    <button type="submit">Analyze</button>
-                </form>
+            
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
                 >
@@ -147,7 +139,6 @@ const GoogleLensComponent = () => {
                     <Masonry>{shoppingItems}</Masonry>
                 </ResponsiveMasonry>
             </div>
-        </div>
     );
 };
 
