@@ -77,6 +77,8 @@ const GoogleLensComponent = () => {
     const [selectedImage, setSelectedImage] = useState(null);  // New state to manage the selected image
     const [priceFilter, setPriceFilter] = useState('all'); // New state for price filter
     const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
 
 
     useEffect(() => {
@@ -111,6 +113,12 @@ const GoogleLensComponent = () => {
         setSelectedImage(null);  // Reset the selected image state when the modal is closed
     };
 
+    const brands = [...new Set(images.map(image => image.source))];
+
+    const toggleBrandsVisibility = () => {
+        setAreBrandsVisible(!areBrandsVisible); // Toggle the visibility state of brand filters
+    };
+
     const observer = useRef();
     const lastImageElementRef = useCallback(node => {
         if (observer.current) observer.current.disconnect();
@@ -141,11 +149,25 @@ const GoogleLensComponent = () => {
         return value >= min && value <= max;
     };
 
+    const filterImages = (item) => {
+        const isPriceOk = filterByPrice(item);
+        const isBrandOk = selectedBrands.length === 0 || selectedBrands.includes(item.source);
+        return isPriceOk && isBrandOk;
+    };
+
+    const filteredImages = images.filter(filterImages);
+
     const handlePriceFilterChange = (e) => {
         setPriceFilter(e.target.value);
     };
 
-    const filteredImages = images.filter(filterByPrice);
+    const handleBrandFilterChange = (e, brand) => {
+        if (e.target.checked) {
+            setSelectedBrands(prev => [...prev, brand]);
+        } else {
+            setSelectedBrands(prev => prev.filter(b => b !== brand));
+        }
+    };
 
     const imageItems = filteredImages.map((image, index) => (
         <div className="search-image-container"
@@ -185,6 +207,29 @@ const GoogleLensComponent = () => {
                         <option value="500-1000">$500 - $1000</option>
                         <option value="1000-5000">$1000 - $5000</option>
                     </select>
+
+
+                    <button onClick={toggleBrandsVisibility} className="brand-toggle-btn">
+                        {areBrandsVisible ? 'Hide' : 'Show'} Brands
+                    </button>
+
+                    {areBrandsVisible && (  // Conditionally render brand filters based on areBrandsVisible state
+
+                        <div className="brand-filters">
+                            {brands.map((brand, index) => (
+                                <div key={index}>
+                                    <input
+                                        type="checkbox"
+                                        id={brand}
+                                        name={brand}
+                                        value={brand}
+                                        onChange={e => handleBrandFilterChange(e, brand)}
+                                    />
+                                    <label htmlFor={brand}>{brand}</label>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
             <ResponsiveMasonry
