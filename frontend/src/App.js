@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './components/account/Login';
 import Signup from './components/account/Signup';
-import Following from './components/browsing/API';
+import Following from './components/browsing/following';
 import Landing from './components/landing/Landing';
 import reportWebVitals from './reportWebVitals';
 import Share from './components/share/Share';
@@ -31,6 +31,8 @@ function App() {
         <Route path="/sizechart" element={<SizeChart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/api" element={<API />} />
+
 
       </Routes>
     </div>

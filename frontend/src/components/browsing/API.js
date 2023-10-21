@@ -60,30 +60,40 @@
 
 // export default GoogleLensComponent;
 
-import React, { useState , useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Navbar from '../navbar/Navbar';
 import './API.css';
 import { ImageContext } from './imageContext';  // Import the context
+import ecommerceWebsites from './ecommerceWebsites';
 
 
 const GoogleLensComponent = () => {
     const [images, setImages] = useState([]);
-    const [shoppingResults, setShoppingResults] = useState([]);
     const { imageUrl } = useContext(ImageContext); // Use context to get the imageUrl
+    const loadMoreRef = useRef();  // Create a ref for the "load more" div
+    const [page, setPage] = useState(1);
+    const [selectedImage, setSelectedImage] = useState(null);  // New state to manage the selected image
+    const [priceFilter, setPriceFilter] = useState('all'); // New state for price filter
+    const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
+
 
     useEffect(() => {
         const fetchResults = async () => {
             if (imageUrl) {
                 try {
                     const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
-                    const visualMatches = response.data.visual_matches;
-                    const imageLinks = visualMatches.map(item => item.thumbnail);
-                    setImages(imageLinks);
 
-                    const keywords = visualMatches.map(item => item.description).join(' ');
-                    await fetchShoppingResults(keywords);
+
+                    const visualMatches = response.data.visual_matches || [];
+                    const visualImageLinks = visualMatches
+                        .filter(item => item.price || ecommerceWebsites.some(website => item.source && item.source.includes(website)));
+                    //       .map(item => item.thumbnail);
+
+                    console.log(visualImageLinks);
+                    setImages(visualImageLinks);
+
                 } catch (error) {
                     console.error('Error fetching Google Lens data:', error);
                 }
@@ -93,52 +103,108 @@ const GoogleLensComponent = () => {
         fetchResults();
     }, [imageUrl]);  // This useEffect hook will run every time imageUrl changes
 
-    const fetchShoppingResults = async (keywords) => {
-        try {
-            const response = await axios.get('http://localhost:5001/api/google-shopping', {
-                params: { q: keywords, api_key: 'your-api-key' }
-            });
-            setShoppingResults(response.data.shopping_results);
-        } catch (error) {
-            console.error('Error fetching shopping data:', error);
-        }
+    const openModal = (image) => {
+        setSelectedImage(image);  // Set the selected image to state when an image is clicked
     };
 
-    const imageItems = images.map((imgUrl, index) => (
-        <div className="search-image-container" key={index}>
-            <img src={imgUrl} alt="" />
+    const closeModal = () => {
+        setSelectedImage(null);  // Reset the selected image state when the modal is closed
+    };
+
+    const observer = useRef();
+    const lastImageElementRef = useCallback(node => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                setPage(prevPage => prevPage + 1);
+            }
+        })
+        if (node) observer.current.observe(node)
+    }, [])
+
+    const isEcommerceWebsite = (url) => {
+        // Check if the URL contains the domain of any known e-commerce website
+        return ecommerceWebsites.some(website => url.includes(website));
+    };
+
+
+    const filterByPrice = (item) => {
+        console.log('Filtering item', item);  // Add log to check the items being processed
+        if (priceFilter === 'all') return true;
+        if (!item.price) return false;
+
+        const value = parseFloat(item.price.extracted_value);
+        if (isNaN(value)) return false;
+
+        const [min, max] = priceFilter.split('-').map(Number);
+        console.log('Price value:', value, 'Min:', min, 'Max:', max);  // Add log to check the filter values
+        return value >= min && value <= max;
+    };
+
+    const handlePriceFilterChange = (e) => {
+        setPriceFilter(e.target.value);
+    };
+
+    const filteredImages = images.filter(filterByPrice);
+
+    const imageItems = filteredImages.map((image, index) => (
+        <div className="search-image-container"
+            key={index}
+            onClick={() => openModal(image)}  // Add click event to open modal with selected image
+        >
+
+            <img src={image.thumbnail} alt="" />
             <div className="search-image-text">
-                <h3 className="search-image-title">Image {index + 1}</h3>  {/* Placeholder, adapt as needed */}
-                <p className="search-image-description">Description here</p>  {/* Placeholder, adapt as needed */}
+                <h3 className="search-image-title">{image.source || 'Shop'}</h3> {/* Display shop name, if available */}
+                <p className="search-image-description">Price: {image.price ? image.price.value : 'Not Available'}</p> {/* Display price, if available */}
             </div>
         </div>
     ));
 
-    const shoppingItems = shoppingResults.map((result, index) => (
-        <div key={index}>
-            <h4>{result.title}</h4>
-            <img src={result.thumbnail} alt={result.title} />
-            <p>{result.price}</p>
-            <a href={result.link} target="_blank" rel="noopener noreferrer">View Product</a>
-        </div>
-    ));
+
+    const toggleFilterVisibility = () => {
+        setIsFilterVisible(!isFilterVisible);
+    };
 
     return (
         <div className="search">
             <Navbar />
-            
-                <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-                >
-                    <Masonry>{imageItems}</Masonry>
-                </ResponsiveMasonry>
-                <h2>Shopping Results</h2>
-                <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-                >
-                    <Masonry>{shoppingItems}</Masonry>
-                </ResponsiveMasonry>
-            </div>
+            <h2>Shopping Results</h2>
+
+            <button onClick={toggleFilterVisibility} className="filter-toggle-btn">
+                {isFilterVisible ? 'Hide' : 'Show'} Filters
+            </button>
+            {isFilterVisible && (
+                <div className="filters">
+                    <label>Filter by price: </label>
+                    <select value={priceFilter} onChange={handlePriceFilterChange}>
+                        <option value="all">All</option>
+                        <option value="0-50">$0 - $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100-500">$100 - $500</option>
+                        <option value="500-1000">$500 - $1000</option>
+                        <option value="1000-5000">$1000 - $5000</option>
+                    </select>
+                </div>
+            )}
+            <ResponsiveMasonry
+                columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 5 }}
+            >
+                <Masonry>{imageItems}</Masonry>
+            </ResponsiveMasonry>
+
+            {selectedImage && (
+                <div className="modal fade-in" onClick={closeModal}>
+                    <div className="modal-content">
+                        <h2>{selectedImage.source || 'Shop'}</h2> {/* Display shop name as title, if available */}
+                        <img src={selectedImage.thumbnail} alt="" />
+                        <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
+                        <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
+                    </div>
+                </div>
+            )}
+
+        </div>
     );
 };
 

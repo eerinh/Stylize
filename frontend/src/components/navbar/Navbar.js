@@ -79,15 +79,16 @@
 // export default Navbar;
 
 
-import React, { useState, useEffect, useCallback , useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { ImageContext } from '../browsing/imageContext';  // Import the context
 import './Navbar.css';
 import Logo from '../../assets/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../database'; 
+import { auth } from '../database';
 import { signOut } from 'firebase/auth';
+
 
 
 
@@ -96,6 +97,9 @@ function Navbar() {
     const [imageUrl] = useState('');
     const navigate = useNavigate();
     const { setImageUrl } = useContext(ImageContext); // Use context to get the setImageUrl function
+    const [isModalOpen, setIsModalOpen] = useState(false); // New state for controlling the modal
+    const [isLoading, setIsLoading] = useState(false); // New state to track loading status
+    const modalRef = useRef(); // Create a ref for the modal content
 
 
 
@@ -108,13 +112,17 @@ function Navbar() {
     }, []);
 
     const onDrop = useCallback(async (acceptedFiles) => {
+        setIsLoading(true); // Set loading to true when starting the upload
         const file = acceptedFiles[0];
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('upload_preset', 'ustwrvfd'); 
+        formData.append('upload_preset', 'ustwrvfd');
 
         const result = await axios.post('https://api.cloudinary.com/v1_1/dmqyrtczb/image/upload', formData);
+        setIsModalOpen(false); // Close modal when image is uploaded
         setImageUrl(result.data.url);
+        setIsLoading(false); // Set loading to false when the upload is completed
+        navigate('/api'); // Navigate to the API component after the image is uploaded and the URL is set
     }, []);
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -163,7 +171,7 @@ function Navbar() {
             });
     };
 
-    
+
 
     if (isAuthenticated) {
         return (
@@ -185,11 +193,26 @@ function Navbar() {
 
                 <div></div>
                 <div className="nav-search-bar">
-                    <div {...getRootProps()} style={styles.dropzone}>
-                        <input {...getInputProps()} />
-                        <p>Click here or drag & drop to upload an image</p>
-                        {imageUrl && <img src={imageUrl} alt="Uploaded" style={styles.image} />}
-                    </div>
+                    <input type="text" placeholder="Search..." />
+                    <button onClick={() => setIsModalOpen(true)} disabled={isLoading}> {/* Disable button when loading */}
+                        Upload Image
+                    </button>
+
+                    {isModalOpen && (
+                        <div className="modal-nav">
+                            <div className="modal-nav-content" ref={modalRef}>
+                                <button onClick={() => setIsModalOpen(false)} disabled={isLoading}> {/* Disable button when loading */}
+                                    Cancel
+                                </button>
+                                {isLoading ? <p>Loading...</p> : ( /* Conditionally render loading text */
+                                    <div {...getRootProps()} style={styles.dropzone}>
+                                        <input {...getInputProps()} />
+                                        <p>Click here or drag & drop to upload an image</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         );

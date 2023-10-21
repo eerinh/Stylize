@@ -30,7 +30,6 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
-    width: 100%;
   }
   
   .search-image-text {
@@ -48,6 +47,7 @@
   }
   
   .search-image-title {
+    color: white;
     font-size: 16px;
     font-weight: bold;
   }
@@ -55,4 +55,84 @@
   .search-image-description {
     font-size: 14px;
   }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Added a dark, semi-transparent background */
+    z-index: 1000; /* Added to lift the modal above all other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal img {
+    max-width: 100%; /* Adjusted the maximum width */
+    max-height: 100%; /* Adjusted the maximum height */
+    border: 5px solid white; /* Added a border for visual separation */
+    margin-bottom: 10px;
+}
+
+.modal p,
+.modal a {
+    color: white; /* Changed the text color to white for visibility against the dark background */
+    font-size: large;
+}
+
+/* Added a transition for a fade-in effect */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.modal.fade-in {
+    opacity: 1;
+}
+
+.modal-content {
+  background-color: white;
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-right: 40px;
+  padding-left: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Adjust the color of the text and link inside the modal content */
+.modal-content p,
+.modal-content a {
+  color: black;
+}
+
+/* Optional: Add a small shadow for a pop-out effect */
+.modal-content {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-toggle-btn {
+  margin: 2px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #ffffff;
+  opacity:80%;
+  border-radius: 5px;
+}
+
+.filters {
+  margin: 10px;
+  padding: 20px;
+  background-color: white;
+  opacity: 80%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
   
