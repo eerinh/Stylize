@@ -16,6 +16,7 @@ function Login(){
     });
     const [errorMsg, setErrorMsg] = useState("");
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmission=() => {
         if(!values.email || !values.pass){
@@ -36,6 +37,13 @@ function Login(){
                 setErrorMsg(err.message);
             });
     };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const isPasswordEmpty = values.pass.trim() =='';
+
     return(
         <div className={styles.container}>
             <div className={styles.innerBox}>
@@ -44,13 +52,28 @@ function Login(){
                 <InputControl label="Email" placeholder="Enter your Email Address"
                     onChange={(event) =>
                         setValues((prev) => ({...prev, email: event.target.value }))
-                }
+                    }
                 />
-                <InputControl label="Password" placeholder="Enter your Password"
-                    onChange={(event) =>
-                        setValues((prev) => ({...prev, pass: event.target.value }))
-                }
-                />
+                <div className={styles.passwordInput}>
+                    <InputControl label="Password" placeholder="Enter your Password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={values.pass}
+                        onChange={(event) =>
+                            setValues((prev) => ({...prev, pass: event.target.value }))
+                        }
+                    />
+
+                    {isPasswordEmpty ? null : (
+                        <button 
+                            className={styles.togglePasswordButton} 
+                            onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? 'Hide' : 'Show'}
+                        </button>
+
+                    )}
+                </div>
+              
 
                 <div className={styles.footer}>
                     <b className={styles.error}>{errorMsg}</b>

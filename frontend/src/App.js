@@ -20,7 +20,7 @@ function App() {
         <Route path="/following" element={<Following />} />
         <Route path="/share" element={<Share />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/boards" element={<Boards />} />
         <Route path="/sizechart" element={<SizeChart />} />
