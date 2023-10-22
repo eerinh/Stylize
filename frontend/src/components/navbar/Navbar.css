@@ -18,6 +18,7 @@
 .nav-logo-container img {
     max-width: 100px;
     position: relative;
+    margin-left: 20px; /* Add left margin to create space */
     top:20px;
     grid-column:1;
   }
@@ -86,4 +87,50 @@
   padding: 40px;
   border-radius: 10px;
   text-align: center;
+}
+
+/* Navbar */
+.navbarlanding {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10px;
+  padding: 0px;
+  background-color: transparent;
+  width: 100%; /* Ensure the navbar spans the entire width */
+  max-width: 100%; /* Ensure the navbar spans the entire width */
+}
+
+
+.navbarLan-links-container {
+  list-style: none; /* Remove list styling */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Display the links as a flex container */
+}
+
+.navbarLan-links-container a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  margin-left: 20px; /* Add margin to the left for spacing */
+  margin-right: 20px; /* Add margin to the right for increased spacing */
+}
+
+.navbarLan-menu-container svg {
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .navbarlanding-links-container {
+    display: none;
+  }
+
+  .navbarlanding-menu-container svg {
+    display: block;
+  }
 }

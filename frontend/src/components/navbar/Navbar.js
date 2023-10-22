@@ -219,7 +219,7 @@ function Navbar() {
     } else {
         return (
             <nav className="navbarlanding">
-                <div className="navLan-logo-container">
+                <div className="nav-logo-container">
                     <Link to="/">
                         <img src={Logo} alt="Logo" />
                     </Link>
