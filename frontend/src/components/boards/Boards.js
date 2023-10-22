@@ -16,12 +16,14 @@ function Boards() {
   const [editableBoardIndex, setEditableBoardIndex] = useState(); 
   const [editedBoardName, setEditedBoardName] = useState('');
 
-  const handleEdit = (index, title) => {
+  //editing the boards 
+  const edit = (index, title) => {
     setEditableBoardIndex(index);
     setEditedBoardName(title);
   };
 
-  const handleSave = (index) => {
+  //saving the boards name 
+  const save = (index) => {
     const updatedPanels = [...panels];
     updatedPanels[index].title = editedBoardName;
     setPanels(updatedPanels);
@@ -43,11 +45,11 @@ function Boards() {
                     value={editedBoardName}
                     onChange={(e) => setEditedBoardName(e.target.value)}
                   />
-                  <button onClick={() => handleSave(index)}>Save</button>
+                  <button onClick={() => save(index)}>Save</button>
                 </div>
               ) : (
                 <div>
-                  <span onClick={() => handleEdit(index, panel.title)}>
+                  <span onClick={() => edit(index, panel.title)}>
                     {panel.title}
                   </span>
                 </div>
