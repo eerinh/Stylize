@@ -11,9 +11,14 @@ import AboutUs from './components/aboutus/Aboutus';
 import Profile from './components/profile/Profile';
 import Boards from './components/boards/Boards';
 import SizeChart from './components/sizechart/SizeChart';
+import API from './components/browsing/API';
+import { ImageProvider } from './components/browsing/imageContext';  // Import the context
+import Navbar from './components/navbar/Navbar'
+
 
 function App() {
   return (
+    <ImageProvider> {/* Wrap the entire app inside the Provider */}
     <div className="App">
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -26,9 +31,12 @@ function App() {
         <Route path="/sizechart" element={<SizeChart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/api" element={<API />} />
+
 
       </Routes>
     </div>
+    </ImageProvider>
   );
 }
 
