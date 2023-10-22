@@ -67,6 +67,10 @@ import Navbar from '../navbar/Navbar';
 import './API.css';
 import { ImageContext } from './imageContext';  // Import the context
 import ecommerceWebsites from './ecommerceWebsites';
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { auth } from '../database';
+
+
 
 
 const GoogleLensComponent = () => {
@@ -79,6 +83,7 @@ const GoogleLensComponent = () => {
     const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
+    const [likedItems, setLikedItems] = useState([]);
 
 
     useEffect(() => {
@@ -183,6 +188,32 @@ const GoogleLensComponent = () => {
         </div>
     ));
 
+    const handleLike = async (e, image) => {
+        e.stopPropagation(); // Prevent the click event from propagating up to the parent div
+
+        if (!auth.currentUser) {
+            console.error("No user is authenticated");
+            return;
+        }
+        const userEmail = auth.currentUser.email;
+
+        setLikedItems(prev => [...prev, image]);
+
+        // Add to Firebase
+        const db = getFirestore();
+        try {
+            await addDoc(collection(db, "savedImages"), {
+                brand: image.source,
+                email: userEmail, // assuming 'values' contains the email of the logged-in user
+                price: image.price ? image.price.value : 'Not Available',
+                url: image.link,
+                thumbnailUrl: image.thumbnail // or store the URL in Firebase Storage and save the download URL here
+            });
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
+    };
+
 
     const toggleFilterVisibility = () => {
         setIsFilterVisible(!isFilterVisible);
@@ -241,7 +272,13 @@ const GoogleLensComponent = () => {
             {selectedImage && (
                 <div className="modal fade-in" onClick={closeModal}>
                     <div className="modal-content">
-                        <h2>{selectedImage.source || 'Shop'}</h2> {/* Display shop name as title, if available */}
+                        <div className="title-container">
+                            <h2>{selectedImage.source || 'Shop'}</h2>
+                            <i
+                                className={`fa ${likedItems.includes(selectedImage) ? 'fa-heart' : 'fa-heart-o'}`}
+                                onClick={(e) => !likedItems.includes(selectedImage) && handleLike(e, selectedImage)}
+                            ></i>
+                        </div>
                         <img src={selectedImage.thumbnail} alt="" />
                         <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>

@@ -158,6 +158,35 @@
 
 }
 
+.title-container {
+  display: flex; /* Add this line */
+  align-items: center; /* Center the items vertically */
+  justify-content: center; /* Center the items horizontally */
+}
+
+.title-container h2 {
+  margin-right: auto; /* Push the title to the left */
+}
+
+.title-container i.fa {
+  margin-left: 20px; /* Optional: Add some space between the title and the heart icon */
+}
+
+.fa-heart,
+.fa-heart-o { /* Apply the styles to both the liked and not liked heart icons */
+    font-size: 24px;
+}
+
+.fa-heart-o {
+    color: black; /* Change this to have a black border */
+    border: none; /* Remove this line to avoid having an empty circle */
+}
+
+.fa-heart {
+    color: black;
+    pointer-events: none;
+}
+
 
 
   
