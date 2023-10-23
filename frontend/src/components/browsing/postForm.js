@@ -54,12 +54,12 @@ const PostForm = ({ isVisible, onClose, selectedImage }) => {
                 <form onSubmit={handleFormSubmit}>
                     <label>Title:</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter post title" />
-
-                    <a href={selectedImage.link} target="_blank" rel="noreferrer" className="go-to-store-link">Go to Store</a>
                     
                     <label>Description:</label>
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter post description"></textarea>
 
+                    <a href={selectedImage.link} target="_blank" rel="noreferrer" className="go-to-store-link">Go to Store</a>
+<div></div>
                     <button type="submit">Submit</button>
                 </form>
             </div>
