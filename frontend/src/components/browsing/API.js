@@ -67,7 +67,8 @@ import Navbar from '../navbar/Navbar';
 import './API.css';
 import { ImageContext } from './imageContext';  // Import the context
 import ecommerceWebsites from './ecommerceWebsites';
-
+import { FaStar } from "react-icons/fa"; //importing requried files
+import './rating.css';
 
 const GoogleLensComponent = () => {
     const [images, setImages] = useState([]);
@@ -79,6 +80,22 @@ const GoogleLensComponent = () => {
     const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
+
+
+    const [userRating, setUserRating] = useState(null);
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null);
+
+    //handling changes in the userating
+    const handleRatingChange = (ratingValue) => {
+        setUserRating(ratingValue);
+    };
+
+    //user clicks on the star
+    const handleRatingClick = (ratingValue) => {
+        setRating(ratingValue);
+        handleRatingChange(ratingValue);
+    };
 
 
     useEffect(() => {
@@ -245,8 +262,31 @@ const GoogleLensComponent = () => {
                         <img src={selectedImage.thumbnail} alt="" />
                         <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
+
+                        <div>
+                            <p>Rate this match:</p>
+                            {/* five stars created */}
+                            {[...Array(5)].map((star, index) => {
+                                const ratingValue = index + 1;
+
+                                return (
+                                    <label key={index}>
+                                        <input type="radio" name="rating" onClick={() => handleRatingClick(ratingValue)} />
+                                        <FaStar
+                                            className="star"
+                                            color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                            size={50}
+                                            onMouseEnter={() => setHover(ratingValue)}
+                                            onMouseLeave={() => setHover(null)}
+                                        />
+                                    </label>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
+
+
             )}
 
         </div>
