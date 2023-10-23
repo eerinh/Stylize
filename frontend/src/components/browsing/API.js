@@ -80,8 +80,6 @@ const GoogleLensComponent = () => {
     const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
-
-
     const [userRating, setUserRating] = useState(null);
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
@@ -103,8 +101,6 @@ const GoogleLensComponent = () => {
             if (imageUrl) {
                 try {
                     const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
-
-
                     const visualMatches = response.data.visual_matches || [];
                     const visualImageLinks = visualMatches
                         .filter(item => item.price || ecommerceWebsites.some(website => item.source && item.source.includes(website)));
