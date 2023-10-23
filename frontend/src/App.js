@@ -14,19 +14,24 @@ import SizeChart from './components/sizechart/SizeChart';
 import API from './components/browsing/API';
 import { ImageProvider } from './components/browsing/imageContext';  // Import the context
 import Navbar from './components/navbar/Navbar'
-
+//import { useAuth } from './useAuth';
+//import UserProfile from '/UserProfile'; //23.10.23 6:01 pm added
+import ProtectedRoute from './components/profile/ProtectedRoute';
+//import { UserProvider } from './UserContext';
+import  UserProfile from './components/profile/UserProfile';
 
 function App() {
   return (
     <ImageProvider> {/* Wrap the entire app inside the Provider */}
     <div className="App">
       <Routes>
+      
         <Route path="/" element={<Landing />} />
         <Route path="/following" element={<Following />} />
         <Route path="/share" element={<Share />} />
         <Route path="/help" element={<Help />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/boards" element={<Boards />} />
         <Route path="/sizechart" element={<SizeChart />} />
         <Route path="/login" element={<Login />} />
@@ -34,6 +39,7 @@ function App() {
         <Route path="/api" element={<API />} />
 
 
+      
       </Routes>
     </div>
     </ImageProvider>
