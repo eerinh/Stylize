@@ -125,6 +125,13 @@
   border-radius: 5px;
 }
 
+.modal-f-content img {
+  max-width: 400px;   /* Set maximum width */
+  max-height: 400px; /* Set maximum height */
+  display: block;
+  margin: 0 auto;    /* Center the image horizontally */
+}
+
 .fade-in-f {
   animation: fadeIn 0.3s ease-in-out;
 }
