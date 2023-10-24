@@ -71,7 +71,7 @@ function Navbar() {
                     <img src={Logo} alt="Logo" />
                 </div>
                 <div className="nav-links">
-                    <Link to="/following">Home</Link>
+                    <Link to="/trending">Home</Link>
                     <Link to="/boards">Boards</Link>
                     <Link to="/share">Favourites</Link>
                     <Link to="/profile">Profile</Link>
