@@ -1,7 +1,7 @@
 body {
-    background-color: #F5EEDC; /* Beige background */
+    background-color: #f5f6f7; /* Beige background */
     font-family: Arial, sans-serif;
-    color: #5E5E5E; /* Neutral text color */
+    color: #43474a; /* Neutral text color */
     padding: 20px;
 }
 
@@ -16,15 +16,15 @@ table {
 }
 
 thead {
-    background-color: #E9DACB; /* Light beige for header */
+    background-color: #dbe5f1; /* Light beige for header */
 }
 
 th, td {
     padding: 10px 15px;
-    border: 1px solid #DAD0C0; /* Neutral border color */
+    border: 1px solid #949797; /* Neutral border color */
     text-align: left;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #EDE4D3; /* Alternate rows have a slightly different beige shade for better readability */
+    background-color: #e4ecf4; /* Alternate rows have a slightly different beige shade for better readability */
 }

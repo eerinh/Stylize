@@ -182,7 +182,7 @@ function Navbar() {
                 <div className="nav-links">
                     <Link to="/following">Home</Link>
                     <Link to="/boards">Boards</Link>
-                    <Link to="/share">Social</Link>
+                    <Link to="/share">Favourites</Link>
                     <Link to="/profile">Profile</Link>
                     <Link to="/sizechart">Size Chart</Link>
 
