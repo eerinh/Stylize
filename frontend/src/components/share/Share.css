@@ -1,5 +1,5 @@
 .container {
-    background: #f0f0f0;
+    background: #f8f8f8;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -7,6 +7,11 @@
     justify-content: center;
     padding: 20px;
   }
+
+  
+body{
+  background: linear-gradient(#dadada, #f8f8f8);
+}
   
   .heading {
     font-size: 24px;
