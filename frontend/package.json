@@ -56,6 +56,29 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@babel/core": "^7.23.2",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "babel-jest": "^29.7.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "concurrently": "^8.2.2",
+    "jsdom": "^22.1.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(axios)/)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "<rootDir>/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileMock.js"
+    }
   }
 }
