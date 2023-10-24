@@ -1,26 +1,28 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+//used for intial testing for login and signup before the landing page was made
 
-function Home(props){
-    return (
-        <div>
-            <div>
-                <h1>
-                    <Link to="/login">Log</Link>
-                </h1>
-                <br />
-                <h1>
-                    <Link to="/signup">Signup</Link>
-                </h1>
-            </div>
+// import React from 'react';
+// import { Link } from "react-router-dom";
 
-            <br />
-            <br />
-            <br />
+// function Home(props){
+//     return (
+//         <div>
+//             <div>
+//                 <h1>
+//                     <Link to="/login">Log</Link>
+//                 </h1>
+//                 <br />
+//                 <h1>
+//                     <Link to="/signup">Signup</Link>
+//                 </h1>
+//             </div>
 
-            <h2>{props.name ? `Welcome - ${props.name}` : "Login please"}</h2>
-        </div>
-    ); 
-}
+//             <br />
+//             <br />
+//             <br />
 
-export default Home;
+//             <h2>{props.name ? `Welcome - ${props.name}` : "Login please"}</h2>
+//         </div>
+//     ); 
+// }
+
+// export default Home;
