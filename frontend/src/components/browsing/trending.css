@@ -1,0 +1,148 @@
+.trending {
+    text-align: center;
+    background: linear-gradient(to bottom, #dadada, #f8f8f8);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+  
+    
+  }
+  
+  
+  .trending-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  .trending-header {
+    background-color: #282c34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .trending-link {
+    color: #61dafb;
+  }
+  
+  
+  .trending-content {
+    margin-top: 20px;
+  }
+  
+  .trending-nav-button-left {
+    border: 1px solid black;
+    border-radius: 5px 0 0 5px;
+    padding: 8px 20px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .trending-nav-button-right {
+    border: 1px solid black;
+    border-radius: 0 5px 5px 0;
+    padding: 8px 20px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .trending-nav-type-button {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom:40px;
+    font-size: large;
+  }
+  
+  
+  .trending-nav-button-left:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .trending-nav-button-right:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .trending-image-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border-radius: 10px;
+    margin:10px;
+  
+  }
+  
+  .trending-image-container img {
+    width: 100%;
+    transition: transform 0.3s ease;
+    margin:0px;
+    padding:0px;
+    height:100%;
+    width:100%;
+  }
+  
+  .trending-image-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(180, 180, 180, 0.7); 
+    color: white;
+    transform: translateY(100%); 
+    transition: transform 0.3s ease;
+  }
+  
+  .trending-image-container:hover .trending-image-text {
+    transform: translateY(0);
+  }
+  
+  .trending-image-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .trending-image-description {
+    font-size: 14px;
+  }
+  
+  .modal-t {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-t-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .modal-t-content img {
+    max-width: 400px;   /* Set maximum width */
+    max-height: 400px; /* Set maximum height */
+    display: block;
+    margin: 0 auto;    /* Center the image horizontally */
+  }
+  
+  .fade-in-t {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
