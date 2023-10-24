@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Navbar from '../navbar/Navbar';
-import './following.css'; // Import the corresponding CSS file
+import './trending.css'; // Import the corresponding CSS file
 import { firestore } from "../database";
 import { getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 
 
-function Following() {
+function Trending() {
   const [imageData, setImageData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null); // New state to manage the selected image
 
 
   useEffect(() => {
-    const sharedImagesCollection = collection(firestore, "followingImages");
+    const sharedImagesCollection = collection(firestore, "sharedImages");
 
     // Fetch the image data
     getDocs(sharedImagesCollection).then((querySnapshot) => {
@@ -27,23 +27,23 @@ function Following() {
   }, []);
 
   const openModal = (data) => {
-    setSelectedImage(data); 
+    setSelectedImage(data); // Set the selected image to state when an image is clicked
   };
 
   const closeModal = () => {
-    setSelectedImage(null); 
+    setSelectedImage(null); // Reset the selected image state when the modal is closed
   };
 
   const items = imageData.map((data, index) => (
 
-    <div className="following-image-container" key={index} onClick={() => openModal(data)}> 
+    <div className="trending-image-container" key={index} onClick={() => openModal(data)}> {/* Add click event to open modal with selected image */}
       <img
         src={data.thumbnailUrl}
         alt=""
       />
-      <div className="following-image-text">
-        <h3 className="following-image-title">{data.title}</h3>
-        <p className="following-image-description">{data.description}</p>
+      <div className="trending-image-text">
+        <h3 className="trending-image-title">{data.title}</h3>
+        <p className="trending-image-description">{data.description}</p>
       </div>
     </div>
   ));
@@ -51,12 +51,12 @@ function Following() {
 
 
   return (
-    <div className="following">
+    <div className="trending">
       <Navbar />
-      <div className="following-content">
-        <div className="following-nav-type-button">
-        <Link to="/trending" className="following-nav-button-left">Trending</Link>
-          <a href="#" className="following-nav-button-right">Following</a>
+      <div className="trending-content">
+        <div className="trending-nav-type-button">
+          <a href="#" className="trending-nav-button-left">Trending</a>
+          <Link to="/following" className="trending-nav-button-right">Following</Link>
         </div>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 5 }}
@@ -84,4 +84,4 @@ function Following() {
   );
 }
 
-export default Following;
+export default Trending;

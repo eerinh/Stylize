@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './components/account/Login';
 import Signup from './components/account/Signup';
 import Following from './components/browsing/following';
+import Trending from './components/browsing/trending';
 import Landing from './components/landing/Landing';
 import reportWebVitals from './reportWebVitals';
 import Share from './components/share/Share';
@@ -18,11 +19,12 @@ import Navbar from './components/navbar/Navbar'
 
 function App() {
   return (
-    <ImageProvider> {/* Wrap the entire app inside the Provider */}
+    <ImageProvider> {}
     <div className="App">
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/following" element={<Following />} />
+        <Route path="/trending" element={<Trending />} />
         <Route path="/share" element={<Share />} />
         <Route path="/help" element={<Help />} />
         <Route path="/aboutus" element={<AboutUs />} />
