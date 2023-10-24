@@ -1,65 +1,3 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";  // Import ResponsiveMasonry
-// import Navbar from '../navbar/Navbar';  // Import Navbar
-// import './API.css';  // Update the path if needed
-
-// const GoogleLensComponent = () => {
-//     const [imageUrl, setImageUrl] = useState('');
-//     const [images, setImages] = useState([]);
-
-//     const handleImageChange = (e) => {
-//         setImageUrl(e.target.value);
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
-//             const visualMatches = response.data.visual_matches;
-//             const imageLinks = visualMatches.map(item => item.thumbnail);
-//             setImages(imageLinks);
-//         } catch (error) {
-//             console.error('Error fetching Google Lens data:', error);
-//         }
-//     };
-
-//     const items = images.map((imgUrl, index) => (
-//         <div className="search-image-container" key={index}>
-//             <img src={imgUrl} alt="" />
-//             <div className="search-image-text">
-//                 <h3 className="search-image-title">Image {index + 1}</h3>  {/* Placeholder, adapt as needed */}
-//                 <p className="search-image-description">Description here</p>  {/* Placeholder, adapt as needed */}
-//             </div>
-//         </div>
-//     ));
-
-//     return (
-//         <div className="search">
-//             <Navbar />
-//             <div className="search-content">
-//                 <form onSubmit={handleSubmit}>
-//                     <input
-//                         type="text"
-//                         placeholder="Enter image URL"
-//                         value={imageUrl}
-//                         onChange={handleImageChange}
-//                         className="image-url-input" 
-//                     />
-//                     <button type="submit">Analyze</button>
-//                 </form>
-//                 <ResponsiveMasonry
-//                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-//                 >
-//                     <Masonry>{items}</Masonry>
-//                 </ResponsiveMasonry>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default GoogleLensComponent;
-
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -69,9 +7,7 @@ import { ImageContext } from './imageContext';  // Import the context
 import ecommerceWebsites from './ecommerceWebsites';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { auth } from '../database';
-
-
-
+import Share from '../share/Share';
 
 const GoogleLensComponent = () => {
     const [images, setImages] = useState([]);
@@ -84,6 +20,8 @@ const GoogleLensComponent = () => {
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
     const [likedItems, setLikedItems] = useState([]);
+    // const shareUrl = this.props.selectedImage ? this.props.selectedImage.thumbnailUrl : '';
+
 
 
     useEffect(() => {
@@ -188,6 +126,13 @@ const GoogleLensComponent = () => {
         </div>
     ));
 
+    //Code for share
+    const handleShare = (e, image) => {
+        e.stopPropagation();
+        setSelectedImage(image);
+        const shareUrl = image.thumbnailUrl;
+    }
+
     const handleLike = async (e, image) => {
         e.stopPropagation(); // Prevent the click event from propagating up to the parent div
 
@@ -282,6 +227,7 @@ const GoogleLensComponent = () => {
                         <img src={selectedImage.thumbnail} alt="" />
                         <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
+                        <Share selectedImage={selectedImage}/>
                     </div>
                 </div>
             )}
