@@ -30,6 +30,7 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
+    cursor: pointer;
   }
   
   .search-image-text {
@@ -174,15 +175,18 @@
 
 .fa-heart,
 .fa-heart-o { /* Apply the styles to both the liked and not liked heart icons */
+    cursor: pointer;
     font-size: 24px;
 }
 
 .fa-heart-o {
+    cursor: pointer;
     color: black; /* Change this to have a black border */
     border: none; /* Remove this line to avoid having an empty circle */
 }
 
 .fa-heart {
+    cursor: pointer;
     color: black;
     pointer-events: none;
 }
@@ -190,6 +194,7 @@
 .post-icon {
   font-size: 1.25em;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 
