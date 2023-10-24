@@ -57,6 +57,7 @@ import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 function Profile() {
     const [userData, setUserData] = useState({}); // user data state
+    const [message, setMessage] = useState(''); 
 
     const auth = getAuth();
     const db = getFirestore();
@@ -140,32 +141,56 @@ function Profile() {
         // with input fields pre-populated with current data,
         // which can be edited and saved.
 
-        <div>
-        <h2>Edit Profile</h2>
-        <form>
-            <div>
-                <label>Name:</label>
-                <input 
-                    type="text" 
-                    name="name" 
-                    value={userData.name} 
-                    onChange={handleInputChange} 
-                />
-            </div>
-            <div>
-                    <label>Email:</label>
-                    <input 
-                        type="text" 
-                        name="email" 
-                        value={userData.email} 
-                        onChange={handleInputChange} 
-                    />
-                </div>
+        <div style={{ display: 'flex' }}>
+            <div style={{
+                padding: '20px',
+                borderRadius: '10px',
+                background: '#f0f0f0',
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                margin: '20px',
+                minWidth: '300px',
+            }}>
+                <h2>Profile</h2>
+                <p><strong>Name: </strong>{userData.name}</p>
+                <p><strong>Email: </strong>{userData.email}</p>
+                <p><strong>Message: </strong>{userData.message}</p>
                 {/* Add other fields as necessary */}
-                <button type="button" onClick={handleSaveChanges}>Save Changes</button>
-            </form>
+            </div>
+            <div style={{ flex: 1, marginLeft: '20px' }}>
+                <h2>Edit Profile</h2>
+                {message && <div>{message}</div>}
+                <form>
+                    <div>
+                        <label>Name:</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={userData.name || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Email:</label>
+                        <input
+                            type="text"
+                            name="email"
+                            value={userData.email || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div>
+                        <label>About Me:</label>
+                        <textarea
+                            name="message"
+                            value={userData.message || ''}
+                            onChange={handleInputChange}
+                        ></textarea>
+                    </div>
+                    {/* Add other fields as necessary */}
+                    <button type="button" onClick={handleSaveChanges}>Save Changes</button>
+                </form>
+            </div>
         </div>
-
 
 
     );

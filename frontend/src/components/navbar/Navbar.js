@@ -92,6 +92,7 @@ import { signOut } from 'firebase/auth';
 
 
 
+
 function Navbar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [imageUrl] = useState('');
@@ -99,6 +100,7 @@ function Navbar() {
     const { setImageUrl } = useContext(ImageContext); // Use context to get the setImageUrl function
     const [isModalOpen, setIsModalOpen] = useState(false); // New state for controlling the modal
     const [isLoading, setIsLoading] = useState(false); // New state to track loading status
+    
     const modalRef = useRef(); // Create a ref for the modal content
 
 
