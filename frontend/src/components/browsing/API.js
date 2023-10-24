@@ -7,6 +7,10 @@ import { ImageContext } from './imageContext';  // Import the context
 import ecommerceWebsites from './ecommerceWebsites';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { auth } from '../database';
+import PostForm from './postForm';  // Adjust the path based on your directory structure
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'; //
+
 import Share from '../share/Share';
 
 const GoogleLensComponent = () => {
@@ -20,8 +24,6 @@ const GoogleLensComponent = () => {
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
     const [likedItems, setLikedItems] = useState([]);
-    // const shareUrl = this.props.selectedImage ? this.props.selectedImage.thumbnailUrl : '';
-
 
 
     useEffect(() => {
@@ -126,13 +128,6 @@ const GoogleLensComponent = () => {
         </div>
     ));
 
-    //Code for share
-    const handleShare = (e, image) => {
-        e.stopPropagation();
-        setSelectedImage(image);
-        const shareUrl = image.thumbnailUrl;
-    }
-
     const handleLike = async (e, image) => {
         e.stopPropagation(); // Prevent the click event from propagating up to the parent div
 
@@ -223,14 +218,26 @@ const GoogleLensComponent = () => {
                                 className={`fa ${likedItems.includes(selectedImage) ? 'fa-heart' : 'fa-heart-o'}`}
                                 onClick={(e) => !likedItems.includes(selectedImage) && handleLike(e, selectedImage)}
                             ></i>
-                        </div>
+                            <FontAwesomeIcon
+                                icon={faPenToSquare}
+                                onClick={(e) => {
+                                    e.stopPropagation(); 
+                                    togglePostForm();
+                                }}
+                                className="post-icon"
+                            />                        </div>
                         <img src={selectedImage.thumbnail} alt="" />
-                        <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
+                        <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p>
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
                         <Share selectedImage={selectedImage}/>
                     </div>
                 </div>
             )}
+
+
+            <PostForm isVisible={isPostFormVisible} onClose={() => setPostFormVisible(false)}    selectedImage={selectedImage}
+ />
+
 
         </div>
     );

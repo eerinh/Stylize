@@ -37,7 +37,7 @@ function Following() {
 
     <div className="following-image-container" key={index} onClick={() => openModal(data)}> {/* Add click event to open modal with selected image */}
       <img
-        src={data.URL}
+        src={data.thumbnailUrl}
         alt=""
       />
       <div className="following-image-text">
@@ -68,9 +68,13 @@ function Following() {
         <div className="modal-f fade-in-f" onClick={closeModal}>  {/* Updated class name */}
           <div className="modal-f-content">  {/* Updated class name */}
             <h2>{selectedImage.title}</h2>
-            <img src={selectedImage.URL} alt="" />
+            <img src={selectedImage.thumbnailUrl} alt="" />
             <p>{selectedImage.description}</p>
             <p>Username: placeholder</p> {/* Placeholder for username */}
+                        <a href={selectedImage.url} target="_blank" rel="noopener noreferrer">
+                Go to Store
+            </a>
+
           </div>
         </div>
       )}
