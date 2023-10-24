@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../landing/NavbarLanding';
-import '../landing/NavbarLanding';
+import Navbar from '../navbar/Navbar';
 import './Aboutus.css'; //import the necessary files
 
 function Aboutus() {

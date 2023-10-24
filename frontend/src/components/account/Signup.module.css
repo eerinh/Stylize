@@ -2,7 +2,7 @@
     height: 100%;
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(to right, #f1bcdf, #fcdc9c);
+    background: linear-gradient(to right, #D3D9D9, #8AAAC0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,7 @@
     min-width: 480px;
     height: fit-content;
     width: fit-content;
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
     padding: 30px;
     border-radius: 10px;
@@ -27,16 +27,10 @@
     gap: 10px;
 }
 
-.footer .error{
-    font-weight: bold;
-    font-size: 0.875rem;
-    color: #90260b;
-}
-
 .footer button{
     outline: none;
     border: none;
-    background-color: #fcdc9c;
+    background-color: #8AAAC0;
     color: #fff;
     border-radius: 5px;
     font-weight: bold;
@@ -46,12 +40,8 @@
     transition: 100ms;
 }
 
-.footer button:disabled{
-    background-color: gray ! important;
-}
-
 .footer button:hover{
-    background-color: #f1bcdf;
+    background-color: #D3D9D9;
 }
 
 .footer p{
@@ -61,7 +51,28 @@
 
 .footer p span a{
     font-weight: bold;
-    color: #ff9ff4;
+    color: #8AAAC0;
     letter-spacing: 1px;
     font-size: 1rem;
 }
+
+.togglePasswordButton {
+    width: 50px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: #a9cbee;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  
+  .togglePasswordButton:hover {
+    background-color: #caddf2;
+  }
+  

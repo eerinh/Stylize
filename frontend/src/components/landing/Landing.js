@@ -2,6 +2,7 @@ import React from 'react';
 import './Landing.css';
 import Navbar from '../navbar/Navbar';
 import backgroundImage from '../../assets/background.jpg';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
@@ -14,9 +15,9 @@ const LandingPage = () => {
             <h1 className="landing-headline">Stylize</h1>
           </div>
           <div className="landing-button-container">
-            {/* <a href="ADD LINK HERE"> */}
+           <Link to = "/signup">
               <button className="landing-start-button">Get started</button>
-            {/* </a> */}
+            </Link>
           </div>
         </div>
       </div>

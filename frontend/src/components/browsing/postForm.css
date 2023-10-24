@@ -1,0 +1,34 @@
+.post-form-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* This ensures the modal is on top of other elements */
+}
+
+.post-form-content {
+    background: #ffffff;
+    padding: 20px;
+    width: 70%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    max-height: 90vh;  /* <-- Adjust this value to set the maximum height */
+    overflow-y: auto;  /* Allows scrolling if content exceeds max height */
+    position: relative; 
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333; /* Adjust color as needed */
+}

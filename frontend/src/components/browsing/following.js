@@ -8,6 +8,8 @@ import { getDocs, collection } from "firebase/firestore";
 
 function Following() {
   const [imageData, setImageData] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null); // New state to manage the selected image
+
 
   useEffect(() => {
     const sharedImagesCollection = collection(firestore, "sharedImages");
@@ -23,12 +25,19 @@ function Following() {
     });
   }, []);
 
+  const openModal = (data) => {
+    setSelectedImage(data); // Set the selected image to state when an image is clicked
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null); // Reset the selected image state when the modal is closed
+  };
 
   const items = imageData.map((data, index) => (
 
-    <div className="following-image-container" key={index}>
+    <div className="following-image-container" key={index} onClick={() => openModal(data)}> {/* Add click event to open modal with selected image */}
       <img
-        src={data.URL}
+        src={data.thumbnailUrl}
         alt=""
       />
       <div className="following-image-text">
@@ -37,6 +46,8 @@ function Following() {
       </div>
     </div>
   ));
+
+
 
   return (
     <div className="following">
@@ -52,7 +63,23 @@ function Following() {
           <Masonry>{items}</Masonry>
         </ResponsiveMasonry>
       </div>
+
+      {selectedImage && (
+        <div className="modal-f fade-in-f" onClick={closeModal}>  {/* Updated class name */}
+          <div className="modal-f-content">  {/* Updated class name */}
+            <h2>{selectedImage.title}</h2>
+            <img src={selectedImage.thumbnailUrl} alt="" />
+            <p>{selectedImage.description}</p>
+            <p>Username: placeholder</p> {/* Placeholder for username */}
+                        <a href={selectedImage.url} target="_blank" rel="noopener noreferrer">
+                Go to Store
+            </a>
+
+          </div>
+        </div>
+      )}
     </div>
+    
   );
 }
 
