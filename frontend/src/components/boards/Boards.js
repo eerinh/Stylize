@@ -3,57 +3,47 @@ import Navbar from '../navbar/Navbar';
 import './Boards.css';
 
 function Boards() {
-  //adding the boards 
-  const [panels, setPanels] = useState([
-    { title: "Enter Board Name Here" },
-    { title: "Enter Board Name Here" },
-    { title: "Enter Board Name Here" },
-    { title: "Enter Board Name Here" },
+
+  //initalise varables for boards and photos (as files)
+  const [files, setFiles] = useState([0]); 
+
+  //array for the board files. multiple images can be stored
+  const [boards, setBoards] = useState([
+    { title: <b>Board One</b>, boardsFiles: [] }, 
+    { title: <b>Board Two</b>, boardsFiles: [] },
+    { title: <b>Board Three</b>, boardsFiles: [] },
   ]);
 
+  //check if the file is selected and create a URL for it
+  function getFile(event, boardsIndex) {
+    if (event.target.files.length > 0) {
+      const newFile = URL.createObjectURL(event.target.files[0]);
+      // Add the new file URL to files
+      setFiles([...files, newFile]); 
 
-  //allow users to edit the name of their board
-  const [editableBoardIndex, setEditableBoardIndex] = useState(); 
-  const [editedBoardName, setEditedBoardName] = useState('');
-
-  //editing the boards 
-  const edit = (index, title) => {
-    setEditableBoardIndex(index);
-    setEditedBoardName(title);
-  };
-
-  //saving the boards name 
-  const save = (index) => {
-    const updatedPanels = [...panels];
-    updatedPanels[index].title = editedBoardName;
-    setPanels(updatedPanels);
-    setEditableBoardIndex(-1);
-  };
+      // Add the new file URL to the board that the user whats to put that image in
+      const updatedPanels = [...boards];
+      updatedPanels[boardsIndex].boardsFiles.push(newFile);
+      //update the board with the image
+      setBoards(updatedPanels);
+    }
+  }
 
   return (
+    //display the nav bar for consistency 
     <div className="board-nav">
       <Navbar />
       <center>
         <h1>Your Boards</h1>
         <div className="panels">
-          {panels.map((panel, index) => (
+          {boards.map((boards, index) => (
             <div key={index} className="panel">
-              {editableBoardIndex === index ? (
-                <div>
-                  <input
-                    type="text"
-                    value={editedBoardName}
-                    onChange={(e) => setEditedBoardName(e.target.value)}
-                  />
-                  <button onClick={() => save(index)}>Save</button>
-                </div>
-              ) : (
-                <div>
-                  <span onClick={() => edit(index, panel.title)}>
-                    {panel.title}
-                  </span>
-                </div>
-              )}
+              <span>{boards.title}</span>
+              {/* allow the user to select the files  */}
+              <input type="file" onChange={(event) => getFile(event, index)} />
+              {boards.boardsFiles.map((file, fileIndex) => (
+                <img key={fileIndex} src={file} alt="Uploaded Image" />
+              ))}
             </div>
           ))}
         </div>

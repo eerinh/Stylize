@@ -1,6 +1,15 @@
+/* CSS for the boards to show in a panel form  */
+
 h1{
     font-size: 300%;
 }
+
+.button {
+    text-align: center; 
+    padding: 5px; 
+    align-items: center;
+  }
+
   .panels {
     display: flex; 
     flex-direction: row; 
@@ -8,13 +17,11 @@ h1{
   }
   
 .panel {
-    width: 400px; 
-    height: 400px; 
+    width: 500px; 
+    height: 2000px; 
     border: 1px solid #000; 
     margin: 10px; 
     padding: 15px; 
     display: flex;
     flex-direction: column;
   }
-  
-  
