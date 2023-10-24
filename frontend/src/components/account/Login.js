@@ -1,26 +1,27 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react' //import react and useState hook
+import { Link, useNavigate } from "react-router-dom"; //import Link and useNavigate with react router dom library
+import { signInWithEmailAndPassword } from 'firebase/auth'; //import signin function from firebase/auth library
 
-import InputControl from './InputControl';
-import { auth } from '../database';
+import InputControl from './InputControl'; //import input control
+import { auth } from '../database'; //import 'auth' object from the database
 
-import styles from './Login.module.css'
+import styles from './Login.module.css' //import css for styling
 
 function Login(){
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //get navigate function from router
     const[values, setValues]=useState({
         name: "",
         email: "",
         pass: "",
-    });
-    const [errorMsg, setErrorMsg] = useState("");
-    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    }); //initialise state variables for user input values
+
+    const [errorMsg, setErrorMsg] = useState(""); //initialise state variable for error messages
+    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false); //initialise state variable for disabling the submit button
+    const [showPassword, setShowPassword] = useState(false); //initialise  state variable for showing and hiding the password
 
     const handleSubmission=() => {
         if(!values.email || !values.pass){
-            setErrorMsg("Please fill all fields");
+            setErrorMsg("Please fill all fields"); //display error message if email or pass is empty
             return;
         }
         setErrorMsg("");
@@ -30,19 +31,19 @@ function Login(){
             .then(async(res) => {
                 setSubmitButtonDisabled(false);
                 
-                navigate("/following");
+                navigate("/following"); //if successful, navigate tot the following page
             })
             .catch((err) => {
                 setSubmitButtonDisabled(false);
-                setErrorMsg(err.message);
+                setErrorMsg(err.message); //if theres an error then display the error message
             });
     };
 
     const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
+        setShowPassword(!showPassword); //toggle visibility of show/hide password
     };
 
-    const isPasswordEmpty = values.pass.trim() =='';
+    const isPasswordEmpty = values.pass.trim() ==''; //check if whitespace if empty after trimming whitespace
 
     return(
         <div className={styles.container}>
@@ -52,8 +53,9 @@ function Login(){
                 <InputControl label="Email" placeholder="Enter your Email Address"
                     onChange={(event) =>
                         setValues((prev) => ({...prev, email: event.target.value }))
-                    }
-                />
+                    } 
+                /> {/*Render input control for email with an event handler for updating the state */}
+
                 <div className={styles.passwordInput}>
                     <InputControl label="Password" placeholder="Enter your Password"
                         type={showPassword ? 'text' : 'password'}
@@ -61,7 +63,7 @@ function Login(){
                         onChange={(event) =>
                             setValues((prev) => ({...prev, pass: event.target.value }))
                         }
-                    />
+                    /> {/*Render input control for password with an event handler for updating the state */}
 
                     {isPasswordEmpty ? null : (
                         <button 
@@ -71,17 +73,17 @@ function Login(){
                           {showPassword ? 'Hide' : 'Show'}
                         </button>
 
-                    )}
+                    )} {/*Render button to toggle password visibility either show/hide */}
                 </div>
               
 
                 <div className={styles.footer}>
-                    <b className={styles.error}>{errorMsg}</b>
-                    <button disabled={submitButtonDisabled}onClick ={handleSubmission}>Login</button>
+                    <b className={styles.error}>{errorMsg}</b> {/*Display error messages. if any*/}
+                    <button disabled={submitButtonDisabled}onClick ={handleSubmission}>Login</button> {/*Render submit button for login*/}
                     <p>
                         Already have an account?{" "} 
                         <span>
-                            <Link to="/signup">Signup</Link>
+                            <Link to="/signup">Signup</Link> {/*Provide link to signup page if user has an existing account*/}
                         </span>
                     </p>
                 </div>
@@ -90,4 +92,4 @@ function Login(){
     );
 }
 
-export default Login;
+export default Login; //export login component
