@@ -10,6 +10,14 @@ import { auth } from '../database';
 import PostForm from './postForm';  // Adjust the path based on your directory structure
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'; //
+import {
+    FacebookShareButton,
+    FacebookIcon,
+    TwitterShareButton,
+    TwitterIcon,
+    FacebookMessengerShareButton,
+    FacebookMessengerIcon,
+  } from 'react-share';
 
 
 const GoogleLensComponent = () => {
@@ -235,6 +243,22 @@ const GoogleLensComponent = () => {
                         <img src={selectedImage.thumbnail} alt="" />
                         <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p>
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
+
+                        <div className="share-buttons">
+                            <p>Share this:</p>
+                            <FacebookShareButton url={selectedImage.link}>
+                                <FacebookIcon size={32} round />
+                            </FacebookShareButton>
+
+                            <TwitterShareButton url={selectedImage.link}>
+                                <TwitterIcon size={32} round />
+                            </TwitterShareButton>
+
+                            <FacebookMessengerShareButton url={selectedImage.link}>
+                                <FacebookMessengerIcon size={32} round />
+                            </FacebookMessengerShareButton>
+                        </div>
+
                     </div>
                 </div>
             )}
