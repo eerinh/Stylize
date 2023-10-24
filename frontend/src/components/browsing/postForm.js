@@ -1,5 +1,5 @@
 // PostForm.js
-import React, { useState } from 'react';  // <-- useState import added
+import React, { useState } from 'react';
 import './postForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +40,6 @@ const PostForm = ({ isVisible, onClose, selectedImage }) => {
     return (
         <div className="post-form-modal">
             <div className="post-form-content">
-                {/* Use FontAwesome icon for the close button */}
                 <FontAwesomeIcon
                     icon={faTimes}
                     onClick={onClose}
@@ -58,7 +57,6 @@ const PostForm = ({ isVisible, onClose, selectedImage }) => {
                     <label>Description:</label>
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter post description"></textarea>
 
-                    <a href={selectedImage.link} target="_blank" rel="noreferrer" className="go-to-store-link">Go to Store</a>
 <div></div>
                     <button type="submit">Submit</button>
                 </form>
