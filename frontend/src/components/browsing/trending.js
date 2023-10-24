@@ -4,7 +4,7 @@ import Navbar from '../navbar/Navbar';
 import './trending.css'; // Import the corresponding CSS file
 import { firestore } from "../database";
 import { getDocs, collection } from "firebase/firestore";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Trending() {
@@ -55,7 +55,7 @@ function Trending() {
       <Navbar />
       <div className="trending-content">
         <div className="trending-nav-type-button">
-          <a href="#" className="trending-nav-button-left">Trending</a>
+          <a href="/" className="trending-nav-button-left">Trending</a>
           <Link to="/following" className="trending-nav-button-right">Following</Link>
         </div>
         <ResponsiveMasonry

@@ -13,7 +13,7 @@ import { signOut } from 'firebase/auth';
 
 function Navbar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [imageUrl] = useState('');
+    // const [imageUrl] = useState('');
     const navigate = useNavigate();
     const { setImageUrl } = useContext(ImageContext);
     const [isModalOpen, setIsModalOpen] = useState(false); 
@@ -42,7 +42,7 @@ function Navbar() {
         setImageUrl(result.data.url);
         setIsLoading(false);
         navigate('/api'); 
-    }, []);
+    }, [navigate, setImageUrl]);
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
