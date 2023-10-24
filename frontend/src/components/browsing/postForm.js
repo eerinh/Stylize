@@ -5,11 +5,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { firestore, auth } from '../database';
 import { collection, addDoc } from 'firebase/firestore';
+import { FaStar } from "react-icons/fa";
+
 
 const PostForm = ({ isVisible, onClose, selectedImage }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [userRating, setUserRating] = useState(null);  //for the stars 
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null);
+
     if (!isVisible) return null;
+
+    //handling changes in the userating
+    const handleRatingChange = (ratingValue) => {
+        setUserRating(ratingValue);
+    };
+
+    //user clicks on the star
+    const handleRatingClick = (ratingValue) => {
+        setRating(ratingValue);
+        handleRatingChange(ratingValue);
+    };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -54,12 +71,35 @@ const PostForm = ({ isVisible, onClose, selectedImage }) => {
                 <form onSubmit={handleFormSubmit}>
                     <label>Title:</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter post title" />
-                    
+
                     <label>Description:</label>
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter post description"></textarea>
 
                     <a href={selectedImage.link} target="_blank" rel="noreferrer" className="go-to-store-link">Go to Store</a>
-<div></div>
+
+
+                    <p>Rate this match:</p>
+                    {/* five stars created */}
+                    {[...Array(5)].map((star, index) => {
+                        const ratingValue = index + 1;
+
+                        return (
+                            <label key={index}>
+                                <input type="radio" name="rating" onClick={() => handleRatingClick(ratingValue)} />
+                                <FaStar
+                                    className="star"
+                                    color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                    size={50}
+                                    onMouseEnter={() => setHover(ratingValue)}
+                                    onMouseLeave={() => setHover(null)}
+                                />
+                            </label>
+                        );
+                    })}
+
+                    <div><br></br></div>
+
+
                     <button type="submit">Submit</button>
                 </form>
             </div>
