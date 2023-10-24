@@ -132,7 +132,7 @@
     margin: 0 auto;    /* Center the image horizontally */
   }
   
-  .fade-in-f {
+  .fade-in-t {
     animation: fadeIn 0.3s ease-in-out;
   }
   
