@@ -5,6 +5,7 @@ function Profile() {
   return (
     <div className='profile-nav'>
       <Navbar />
+      
     </div>
   );
 }
