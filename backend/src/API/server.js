@@ -18,7 +18,7 @@ app.post('/api/google-lens', async (req, res) => {
         return res.status(400).json({ error: 'Image URL is required' });
     }
 
-    const serpAPIKey = "5b17ad02ca60c1ad6e91884b11d639da3c6ce842cff9023335a54a1fef35a398";  // Replace with your actual key
+    const serpAPIKey = "077a2e28e5313a4a45f97ecf677fc1c60f58b7f24cccfea33fde50ccebc9790b"; 
     const endpoint = "https://serpapi.com/search.json?";
 
     try {

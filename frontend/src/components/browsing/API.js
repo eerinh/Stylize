@@ -1,65 +1,3 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";  // Import ResponsiveMasonry
-// import Navbar from '../navbar/Navbar';  // Import Navbar
-// import './API.css';  // Update the path if needed
-
-// const GoogleLensComponent = () => {
-//     const [imageUrl, setImageUrl] = useState('');
-//     const [images, setImages] = useState([]);
-
-//     const handleImageChange = (e) => {
-//         setImageUrl(e.target.value);
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             const response = await axios.post('http://localhost:5001/api/google-lens', { url: imageUrl });
-//             const visualMatches = response.data.visual_matches;
-//             const imageLinks = visualMatches.map(item => item.thumbnail);
-//             setImages(imageLinks);
-//         } catch (error) {
-//             console.error('Error fetching Google Lens data:', error);
-//         }
-//     };
-
-//     const items = images.map((imgUrl, index) => (
-//         <div className="search-image-container" key={index}>
-//             <img src={imgUrl} alt="" />
-//             <div className="search-image-text">
-//                 <h3 className="search-image-title">Image {index + 1}</h3>  {/* Placeholder, adapt as needed */}
-//                 <p className="search-image-description">Description here</p>  {/* Placeholder, adapt as needed */}
-//             </div>
-//         </div>
-//     ));
-
-//     return (
-//         <div className="search">
-//             <Navbar />
-//             <div className="search-content">
-//                 <form onSubmit={handleSubmit}>
-//                     <input
-//                         type="text"
-//                         placeholder="Enter image URL"
-//                         value={imageUrl}
-//                         onChange={handleImageChange}
-//                         className="image-url-input" 
-//                     />
-//                     <button type="submit">Analyze</button>
-//                 </form>
-//                 <ResponsiveMasonry
-//                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-//                 >
-//                     <Masonry>{items}</Masonry>
-//                 </ResponsiveMasonry>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default GoogleLensComponent;
-
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -67,6 +5,11 @@ import Navbar from '../navbar/Navbar';
 import './API.css';
 import { ImageContext } from './imageContext';  // Import the context
 import ecommerceWebsites from './ecommerceWebsites';
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { auth } from '../database';
+import PostForm from './postForm';  // Adjust the path based on your directory structure
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'; //
 
 
 const GoogleLensComponent = () => {
@@ -79,6 +22,8 @@ const GoogleLensComponent = () => {
     const [isFilterVisible, setIsFilterVisible] = useState(false); // New state to toggle filter visibility
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [areBrandsVisible, setAreBrandsVisible] = useState(false); // New state to toggle brand filters visibility
+    const [likedItems, setLikedItems] = useState([]);
+    const [isPostFormVisible, setPostFormVisible] = useState(false);
 
 
     useEffect(() => {
@@ -183,6 +128,38 @@ const GoogleLensComponent = () => {
         </div>
     ));
 
+    const togglePostForm = () => {
+        console.log("TOGGLED UWU");
+        setPostFormVisible(prev => !prev);
+    };
+
+
+    const handleLike = async (e, image) => {
+        e.stopPropagation(); // Prevent the click event from propagating up to the parent div
+
+        if (!auth.currentUser) {
+            console.error("No user is authenticated");
+            return;
+        }
+        const userEmail = auth.currentUser.email;
+
+        setLikedItems(prev => [...prev, image]);
+
+        // Add to Firebase
+        const db = getFirestore();
+        try {
+            await addDoc(collection(db, "savedImages"), {
+                brand: image.source,
+                email: userEmail, // assuming 'values' contains the email of the logged-in user
+                price: image.price ? image.price.value : 'Not Available',
+                url: image.link,
+                thumbnailUrl: image.thumbnail // or store the URL in Firebase Storage and save the download URL here
+            });
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
+    };
+
 
     const toggleFilterVisibility = () => {
         setIsFilterVisible(!isFilterVisible);
@@ -241,13 +218,31 @@ const GoogleLensComponent = () => {
             {selectedImage && (
                 <div className="modal fade-in" onClick={closeModal}>
                     <div className="modal-content">
-                        <h2>{selectedImage.source || 'Shop'}</h2> {/* Display shop name as title, if available */}
+                        <div className="title-container">
+                            <h2>{selectedImage.source || 'Shop'}</h2>
+                            <i
+                                className={`fa ${likedItems.includes(selectedImage) ? 'fa-heart' : 'fa-heart-o'}`}
+                                onClick={(e) => !likedItems.includes(selectedImage) && handleLike(e, selectedImage)}
+                            ></i>
+                            <FontAwesomeIcon
+                                icon={faPenToSquare}
+                                onClick={(e) => {
+                                    e.stopPropagation(); 
+                                    togglePostForm();
+                                }}
+                                className="post-icon"
+                            />                        </div>
                         <img src={selectedImage.thumbnail} alt="" />
-                        <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p> {/* Updated this line */}
+                        <p>Price: {selectedImage.price ? selectedImage.price.value : 'Not Available'}</p>
                         <a href={selectedImage.link} target="_blank" rel="noreferrer">Go to Shop</a>
                     </div>
                 </div>
             )}
+
+
+            <PostForm isVisible={isPostFormVisible} onClose={() => setPostFormVisible(false)}    selectedImage={selectedImage}
+ />
+
 
         </div>
     );
